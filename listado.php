@@ -99,13 +99,21 @@ require_once('conexion.php');
                                                <?php
                                                 if ($_SESSION['esadmin']==0) {
                                                     while($arraySolicitud=mysql_fetch_array($ejecSolicitud)){
-
-
                                                    ?>
-                                                    <div class="col-xs-12" style="background:yellow;opacity:0.4; font-size:20px; padding:10px;color:black;margin-top:5px;">
-                                                        <?php echo $arraySolicitud['fec_solicitud_soli'];?>  &nbsp;  <?php echo $arraySolicitud['nombre_prod']; ?>&nbsp; <?php $estado = $arraySolicitud['estado_solicitud_soli'] == 'finalizado' ? "FINALIZADA " : "ACTIVO"; echo $estado; ?> 
-                                                    </div>
-                                                    <br>
+                                                   
+                                                      <div class="col-xs-12" style="background:yellow;opacity:0.5; font-size:20px; padding:10px;color:black;margin-top:5px;">
+                                                          <?php echo $arraySolicitud['fec_solicitud_soli'];?>  &nbsp;  <?php echo $arraySolicitud['nombre_prod']; ?>&nbsp; <?php $estado = $arraySolicitud['estado_solicitud_soli'] == 'finalizado' ? "FINALIZADA " : "ACTIVO"; echo $estado;?>
+                                                          <?php $estado=$arraySolicitud['estado_solicitud_soli'];?>
+                                                          <?php if ($estado=='finalizado'){ ?>
+                                                              <div class="text-right">
+                                                                  <a href="#" class="btn btn-primary">Dejar un comentario</a>
+                                                                  <a href="#" class="btn btn-danger">Eliminar</a>
+                                                              </div>
+                                                           <?php } ?> 
+
+                                                      </div>
+                                                      <br>
+                                                  
                                                    <?php  
                                                     }
                                                 }elseif($_SESSION['esadmin']==1 || $_SESSION['esadmin']==2){
