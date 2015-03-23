@@ -12,9 +12,10 @@ $fec_sol = date('Y-m-d H:i:s',$hora);
 $idgas=$_POST['idgas'];
 //$terminos=$_POST['terminos'];
 $idusu=$_POST['idusuario'];
+$metodopago=$_POST['metodopago_cli'];
 
 
-               $sqlSolicitarPedido="insert into solicitud (cliente_id_soli, fec_solicitud_soli, producto_id_soli, estado_solicitud_soli) values ('$idusu','$fec_sol','$idgas','activo')"; 
+               $sqlSolicitarPedido="insert into solicitud (cliente_id_soli, fec_solicitud_soli, producto_id_soli, estado_solicitud_soli, metodo_pago_cli_soli) values ('$idusu','$fec_sol','$idgas','activo','$metodopago')"; 
                $ejecSolicitarPedido=mysql_query($sqlSolicitarPedido, $conexion);
 
 

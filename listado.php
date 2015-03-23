@@ -166,8 +166,12 @@ require_once('conexion.php');
                                                                             <label>Fecha/Hora Solicitud</label>
                                                                             <input  value="<?php echo $arraySolicitudDatos['fec_solicitud_soli']?>" type="tel" name="text" disabled class="form-control" required="" autofocus="">
                                                                             <br>
+                                                                            <label>Metodo de Pago</label>
+                                                                            <input  value="<?php echo $arraySolicitudDatos['metodo_pago_cli_soli']?>" type="text" name="text" disabled class="form-control" required="" autofocus="">
+                                                                            <br>
                                                                             <?php if ($_SESSION['esadmin']==1){ ?>
-                                                                                    <a href="finalizar-pedido.php?l=<?php echo $arraySolicitud['id_soli']?>" class="btn btn-success">Finalizar Pedido</a>
+                                                                                    <div class="btn btn-success"><a href="finalizar-pedido.php?l=<?php echo $arraySolicitud['id_soli']?>" style="color:white;">Finalizar Pedido</a></div>
+                                                                                    <div class="btn btn-danger"><a href="rechazar-pedido.php?l=<?php echo $arraySolicitud['id_soli']?>" style="color:white;">Rechazar Pedido</a></div>
                                                                             <?php } ?>
                                                                       
 

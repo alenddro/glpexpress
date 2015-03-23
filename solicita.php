@@ -104,6 +104,14 @@ require_once('conexion.php');
                             <div class="col-xs-12 text-center">
                                 <input type="checkbox" name="terminos" value="si">Enviar mi Localizacion actual
                             </div>
+                            <div class="col-xs-12 form-control">
+                                <select name="metodopago_cli" id="metodopago">
+                                    <option value="efectivo">Efectivo</option>
+                                    <option value="credito">Credito Casa Comercial</option>
+                                    <option value="cheque">Cheque</option>
+                                    <option value="visa">Visa-Master card</option>
+                                </select>
+                            </div>
                             <div class="row">
                                 <div class="col-xs-12 text-center">
                                     <button class="btn btn-lg btn-warning btn-block" type="submit">Solicitar</button>

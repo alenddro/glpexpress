@@ -3,6 +3,17 @@ header('Content-Type: text/html; charset=ISO-8859-1');
 require_once('conexion.php');
 
 
+        //Estados del Usuario / Trabajdor (esadmin)
+        /*
+        0.-Usuario/cliente
+        1.-Trabajador
+        2.-Admin
+        3.-Trabajador dado de baja
+        4.-Usuario/cliente dado de baja
+        5.-
+        */
+
+
         if ($_SESSION['esadmin']==2) {
            
              //listado trabajaores
