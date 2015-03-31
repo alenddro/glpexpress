@@ -123,5 +123,6 @@ require_once('conexion.php');
             </div>
         </article>
     </section>
+    <?php require_once("isset/footer.html");?>
 </body>
 </html>

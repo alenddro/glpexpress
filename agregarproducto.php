@@ -17,23 +17,36 @@ session_start();
 	<?php
 		require_once('isset/header.html');  
 	?>
-	<section id="form_producto">
+	<section id="producto">
 		<article>
-			<form action="agregarproducto2.php" enctype="multipart/form-data" method="POST">
+			<form action="agregarproducto2.php" enctype="multipart/form-data" method="POST" role="form" class="form_producto">
 				<div class="agregar-producto">
-					<input type="text" name="nombre_prod" placeholder="Nombre del producto">
-					<br><hr>
-					<input type="file" name="ruta_prod" placeholder="imagen del producto">
-					<br><hr>
-					<input type="text" name="valor_prod" rows="10" placeholder="Valor producto ($)"></input>
-					<br><hr>
-					<input type="text" name="stock_prod" rows="10" placeholder="Cantidad producto"></input>
-					<br><hr>
-					<button type="submit" >Guardar</button>
+					<div class="form-group">
+						<label for="nombreProducto">Nombre Producto</label>
+						<input type="text" class="form-control" name="nombre_prod" placeholder="ingrese nombre del producto">
+						<hr>
+					</div>
+					<div class="form-group">
+						<label for="nombreImagen">Imagen</label>	
+						<input type="file" class="form-control" name="ruta_prod" placeholder="imagen del producto">
+						<hr>
+					</div>	
+					<div class="form-group">
+						<label for="valorProducto">Valor Producto</label>	
+						<input type="text" class="form-control" name="valor_prod" rows="10" placeholder="Ingrese Valor producto ($)"></input>
+						<hr>
+					</div>	
+					<div class="form-group">
+						<label for="stockProducto">Stock Producto</label>	
+						<input type="text" class="form-control" name="stock_prod" rows="10" placeholder="Ingrese Cantidad producto"></input>
+						<hr>
+					</div>
+					<button type="submit" class="btn btn-default">Guardar</button>
 				</div>
 			</form>
 		</article>
 	</section>
+	<?php require_once("isset/footer.html");?>
 
 	
 </body>

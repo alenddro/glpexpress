@@ -10,9 +10,8 @@
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 </head>
 <body>
-	<?php
-		require_once('isset/header.html');  
-	?>
+	<?php require_once('isset/header.html');?>
 	
+	<?php require_once("isset/footer.html");?>
 </body>
 </html>

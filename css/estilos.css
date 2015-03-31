@@ -1,9 +1,9 @@
 
 /*index*/
 
-header{
+/*header{
     margin-bottom: 69px;
-}
+}*/
 
 .navbar-inverse {
 background-color: #222;
@@ -161,4 +161,18 @@ border-color: #FFF;
     border: rgb(255, 179, 124) 1px solid;
     height: 100px;
     padding: 22px;
+}
+
+
+/*agregar_producto.php*/
+
+#producto{
+    padding-left:10%;
+    padding-right:10%;
+}
+
+#producto .form_producto{
+    padding:10px;
+    border-radius: 4px;
+    border:1px #ddd solid;
 }

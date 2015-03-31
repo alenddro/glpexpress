@@ -1,4 +1,4 @@
-
+s
 <?php
 header('Content-Type: text/html; charset=ISO-8859-1');
 session_start();
@@ -112,18 +112,6 @@ require_once('conexion.php');
         </section>
     </div>
 
-    <footer class="container-fluid">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-12 text-center">
-                            <p>Sucursal Lipigas &copy; Company 2014</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <?php require_once("isset/footer.html");?>
 </body>
 </html>
