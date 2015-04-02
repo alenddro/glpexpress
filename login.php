@@ -35,6 +35,7 @@
 
     $_SESSION['id_usu']=$arrayLogin['id_usu'];
     $_SESSION['nombre_usu']=$arrayLogin['nombre_usu'];
+    $_SESSION['apellido_usu']=$arrayLogin['apellido_usu'];
     $_SESSION['esadmin']=$arrayLogin['esadmin'];
 
     if ($arrayLogin['nombreusu_usu'] == $usu && $arrayLogin['password_usu'] == $pass){

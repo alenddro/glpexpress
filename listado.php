@@ -41,7 +41,7 @@ require_once('conexion.php');
 <body>
 
    <header>
-        <div class="navbar navbar-inverse navbar-fixed-top" id="nav-lipigas" role="navigation">
+        <div class="navbar navbar-inverse navbar-default" id="nav-lipigas" role="navigation">
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -95,23 +95,45 @@ require_once('conexion.php');
                                                     </div>
                                                 </div>
                                             </div>
-                                            <form class="form-signin registro-lipigas-listado" role="form" id="listadogas">
+                                            <div class="form-signin registro-lipigas-listado" id="listadogas">
                                                <?php
                                                 if ($_SESSION['esadmin']==0) {
                                                     while($arraySolicitud=mysql_fetch_array($ejecSolicitud)){
                                                    ?>
-                                                   
-                                                      <div class="col-xs-12" style="background:yellow;opacity:0.5; font-size:20px; padding:10px;color:black;margin-top:5px;">
-                                                          <?php echo $arraySolicitud['fec_solicitud_soli'];?>  &nbsp;  <?php echo $arraySolicitud['nombre_prod']; ?>&nbsp; <?php $estado = $arraySolicitud['estado_solicitud_soli'] == 'finalizado' ? "FINALIZADA " : "ACTIVO"; echo $estado;?>
                                                           <?php $estado=$arraySolicitud['estado_solicitud_soli'];?>
                                                           <?php if ($estado=='finalizado'){ ?>
-                                                              <div class="text-right">
-                                                                  <a href="#" class="btn btn-primary">Dejar un comentario</a>
-                                                                  <a href="#" class="btn btn-danger">Eliminar</a>
+                                                              <div class="col-xs-12"  style="background:yellow;opacity:0.5; font-size:20px; padding:10px;color:black;margin-top:5px;">  
+                                                                  <?php echo "Codigo Solicitud: ".$arraySolicitud['id_soli']." | "?>&nbsp;<?php echo $arraySolicitud['fec_solicitud_soli'] ." | ";?>&nbsp;<?php echo $arraySolicitud['nombre_prod'] ." | ";?>&nbsp;<?php $estado = $arraySolicitud['estado_solicitud_soli'] == 'finalizado' ? "FINALIZADA " : "ACTIVO"; echo $estado;?>
+                                                                  <div class="datossoliusuario collapse" id="versolicitud-usuario<?php echo $arraySolicitud['id_soli'];?>">
+                                                                      <form action="enviarcomentario.php">
+                                                                          <h1>Comentario</h1>
+                                                                          <textarea name="" id="" cols="30" rows="10">
+                                                                            
+                                                                          </textarea>
+                                                                          <br>
+                                                                          <input type="submit" value="Enviar">
+                                                                      </form> 
+                                                                  </div>
+                                                                  <div class="text-right">
+                                                                      <a href="#versolicitud-usuario<?php echo $arraySolicitud['id_soli']?>" data-toggle="collapse" class="btn btn-primary btn-lg">
+                                                                            Dejar un comentario
+                                                                      </a>
+                                                                      <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">
+                                                                            Eliminar
+                                                                      </button>
+                                                                  </div>
                                                               </div>
-                                                           <?php } ?> 
+                                                           <?php }else{?>
 
-                                                      </div>
+                                                              <div class="col-xs-12" id="versolicitud-usuario<?php echo $arraySolicitud['id_soli'];?>" style="background:yellow;opacity:0.5; font-size:20px; padding:10px;color:black;margin-top:5px;">
+                                                                  <?php echo "Codigo Solicitud: ".$arraySolicitud['id_soli']." | "?>&nbsp;<?php echo $arraySolicitud['fec_solicitud_soli'] ." | ";?>&nbsp;<?php echo $arraySolicitud['nombre_prod'] ." | ";?>&nbsp;<?php $estado = $arraySolicitud['estado_solicitud_soli'] == 'finalizado' ? "FINALIZADA " : "ACTIVO"; echo $estado;?>
+                                                              </div>
+
+
+
+
+                                                           <?php } ?> 
+                                                   
                                                       <br>
                                                   
                                                    <?php  
@@ -194,8 +216,7 @@ require_once('conexion.php');
                                                 }    
                                                     ?> 
 
-                                            </form>
-
+                                            </div>
                                         </article>
                                     </div>
                                 </div>

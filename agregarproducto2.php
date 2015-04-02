@@ -24,14 +24,14 @@ $carpeta_upload_img = $carpeta_upload_img . $fec_subida . basename( $_FILES['rut
 	$ejecInsertarDatosProducto=mysql_query($sqlInsertarDatosProducto,$conexion);
 
 	if ($ejecInsertarDatosProducto) {
-		echo "datos insertados correcctamente";
+		echo "datos insertados correctamente";
 
 		?>
 		<script>
              setTimeout(function () {
                window.location.href = "listarproducto.php";
             }, 1000);
-         </script>
+        </script>
 		<?php
 
 	}else{

@@ -91,6 +91,26 @@ require_once('conexion.php');
                             </article>
                         </div>
                         <div class="row">
+                        	 <article class="col-sm-4 col-sm-offset-2 col-xs-12 col-dashboard">
+                                <a href="#area-oferta" data-toggle="collapse" title="Oferta">
+                                    <div ><h3>Area Oferta</h3></div>
+                                </a>
+                                <div id="area-oferta" class="collapse">
+                                   <a class="col-xs-12" href="agregaroferta.php"><img src="img/checklist.png" width="30" alt="agregaroferta">Agregar Oferta</a>
+                                   <a class="col-xs-12" href="listaroferta.php"><img src="img/checklistfull.jpg" width="30" alt="listaroferta">Listar Oferta</a>
+                                </div>
+                            </article>
+                             <article class="col-sm-4 col-xs-12 col-dashboard">
+                                <a href="#area-camiones" data-toggle="collapse" title="Camiones">
+                                    <div ><h3>Area Camiones</h3></div>
+                                </a>
+                                <div id="area-camiones" class="collapse">
+                                   <a class="col-xs-12" href="agregarcamiones.php"><img src="img/checklist.png" width="30" alt="agregarcamiones">Agregar camiones</a>
+                                   <a class="col-xs-12" href="listarcamiones.php"><img src="img/checklistfull.jpg" width="30" alt="listarcamiones">Listar camiones</a>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="row">
                         	<!-- Aqui van mas opciones de menu-->
                         </div>
 					</div>

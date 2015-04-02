@@ -148,10 +148,32 @@
 			</div>
 	    </footer>
 
+	   
+    	<!-- Modal automatico sin boton-->
+		<section class="modal fade" id="modal-content">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title">Modal title</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>Modal Descrpcion&hellip;</p>
+		        <p><img src="img/img-oferta/" alt="oferta"></p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</section><!-- /.modal -->
+
 	    <script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script>
 			$(document).ready(function () {
+			    $('#modal-content').modal('show');
+			    $('#modal-content').on('shown')
 			    $('ul.nav > li').click(function (e) {
 			        $('ul.nav > li').removeClass('active');
 			        $(this).addClass('active');
