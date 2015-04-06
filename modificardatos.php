@@ -95,12 +95,8 @@ require_once('conexion.php');
                                                 <label>E-mail</label>
                                                 <input  value="<?php echo $arrayDatosUsuario['email_usu']?>" type="email" name="email" class="form-control" required="" autofocus="">
                                                  <br>
-                                                <label class="checkbox">
-                                                <input type="checkbox" name="terminos" value="si" checked> Acepto los terminos y condiciones!
-                                                </label>
                                                 <button class="btn btn-lg btn-warning btn-block" type="submit">Modificar!</button>
                                             </form>
-
                                         </article>
                                     </div>
                                 </div>

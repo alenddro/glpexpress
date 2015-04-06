@@ -5,7 +5,7 @@ require_once('conexion.php');
     if($_SESSION['esadmin']==1 || $_SESSION['esadmin']==2 ){
 
         //Todos los pedidos activos
-        $sqlSolicitud="select producto.*, solicitud.* from solicitud, producto where producto.id_prod=solicitud.producto_id_soli and solicitud.estado_solicitud_soli='finalizado' order by solicitud.fec_solicitud_soli desc";
+        $sqlSolicitud="select producto.*, solicitud.* from solicitud, producto where producto.id_prod=solicitud.producto_id_soli and (solicitud.estado_solicitud_soli='finalizado' or solicitud.estado_solicitud_soli='oculto')  order by solicitud.fec_solicitud_soli desc";
         $ejecSolicitud=mysql_query($sqlSolicitud, $conexion);
 
     }    
@@ -25,7 +25,7 @@ require_once('conexion.php');
 	<body>
 
 		<header>
-	        <div class="navbar navbar-inverse navbar-fixed-top" id="nav-lipigas" role="navigation">
+	        <div class="navbar navbar-inverse navbar-default" id="nav-lipigas" role="navigation">
 	          <div class="container">
 	            <div class="navbar-header">
 	              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -49,10 +49,9 @@ require_once('conexion.php');
 	   		<div class="row">
 		        <a href="cierra_session.php">Cerrar Sesion</a>
 		        <?php if ( $_SESSION['esadmin']==2){ ?>
-		            <a href="administrar.php">Regresar al Menu principal</a> 
-		        <?php }else if($_SESSION['esadmin']==0){?>
-		            <a href="solicita.php">Regresar a Solicitudes</a>
-		        <?php } ?>  
+                    <br>
+		            <a href="administrar.php">Regresar al Menu principal</a>
+		        <?php } ?>
 	   		</div>
 	    </section>
 
@@ -86,6 +85,13 @@ require_once('conexion.php');
 	                                                </div>
 	                                            </div>
 	                                            <form class="form-signin registro-lipigas-listado" role="form" id="listadogas">
+                                                    <div class="col-xs-12 text-center">
+                                                        <a href="javascript:;" class="btn btn-danger">Reclamo</a>
+                                                        <a href="javascript:;" class="btn btn-primary">Felicitaciones</a>
+                                                        <a href="javascript:;" class="btn btn-warning">Mejoras</a>
+                                                        <a href="javascript:;" class="btn btn-success">Otros</a>
+                                                        <a href="javascript:;" class="btn btn-default">Sin Comentarios</a>
+                                                    </div>
 	                                               <?php
 	                                                if($_SESSION['esadmin']==1 || $_SESSION['esadmin']==2){
 	                                                    while($arraySolicitud=mysql_fetch_array($ejecSolicitud)){
@@ -109,7 +115,20 @@ require_once('conexion.php');
 	                                                      ?>
 
 	                                                     <div class="col-xs-12 listado-trabajador">
-	                                                         <a href="#versolicitud<?php echo $arraySolicitud['id_soli']?>" data-toggle="collapse"><?php echo $arraySolicitud['fec_solicitud_soli'];?>  &nbsp;  <?php echo $arraySolicitud['nombre_prod']; ?>&nbsp;  FINALIZADA</a> 
+	                                                         <div class="col-xs-8"><a href="#versolicitud<?php echo $arraySolicitud['id_soli']?>" data-toggle="collapse"><?php echo "Solicitud N:".$idsol." | ";?> &nbsp;<?php echo $arraySolicitud['fec_solicitud_soli']." | ";?>  &nbsp;  <?php echo $arraySolicitud['nombre_prod']; ?>&nbsp;  | FINALIZADA 
+                                                            </a></div>
+                                                                 <?php if($arraySolicitudDatos['tipo_comentario_cli_soli']=='felicitacion'){
+                                                                        echo "<div class='col-xs-4 text-right'><div class='btn btn-primary'>&nbsp;</div></div>";
+                                                                    }elseif($arraySolicitudDatos['tipo_comentario_cli_soli']=='reclamo'){
+                                                                        echo "<div class='col-xs-4 text-right'><div class='btn btn-danger'>&nbsp;</div></div>";
+                                                                    }elseif($arraySolicitudDatos['tipo_comentario_cli_soli']=='otro'){
+                                                                        echo "<div class='col-xs-4 text-right'><div class='btn btn-success'>&nbsp;</div></div>";
+                                                                    }elseif($arraySolicitudDatos['tipo_comentario_cli_soli']=='mejoras'){
+                                                                        echo "<div class='col-xs-4 text-right'><div class='btn btn-warning'>&nbsp;</div></div>";
+                                                                    }else{
+                                                                        echo "<div class='col-xs-4 text-right'><div class='btn btn-default'>&nbsp;</div></div>";
+                                                                    }
+                                                                ;?> 
 	                                                            <div id="versolicitud<?php echo $arraySolicitud['id_soli']?>" class="collapse">
 	                                                            <h1>Solicitud numero: <?php echo $idsol;?></h1> 
 	                                                            <div class="row">
@@ -122,7 +141,6 @@ require_once('conexion.php');
 	                                                                                </div>
 	                                                                            </div>
 	                                                                        </div>
-	                                                                       
 	                                                                            <label>Nombre</label>
 	                                                                            <input  value="<?php echo $arraySolicitudDatos['nombre_usu']?>" type="text" disabled name="nombreusu" class="form-control"  required="" autofocus="">
 	                                                                            <br>
@@ -154,7 +172,16 @@ require_once('conexion.php');
                                                                                     $arrayNombreApellidoTrabajdor=mysql_fetch_array($ejecNombreApellidoTrabajdor);
                                                                                     $nombre_apellido_trabajador = $arrayNombreApellidoTrabajdor['nombre_usu']." ".$arrayNombreApellidoTrabajdor['apellido_usu'];
                                                                                 ?>
-	                                                                            <input  value="<?php echo $nombre_apellido_trabajador;?>" type="tel" name="text" disabled class="form-control" required="" autofocus="">
+                                                                                <input  value="<?php echo $nombre_apellido_trabajador;?>" type="tel" name="text" disabled class="form-control" required="" autofocus="">
+                                                                                <br> 
+                                                                                <?php
+                                                                                if ($arraySolicitudDatos['comentario_cli_soli'] && $arraySolicitudDatos['tipo_comentario_cli_soli']){
+                                                                                 ?>
+                                                                                    <label>Tipo Comentario</label>
+                                                                                    <input type="text" disabled class="form-control" value="<?php echo $arraySolicitudDatos['tipo_comentario_cli_soli'];?>" >
+                                                                                    <label>Comentario</label>
+                                                                                    <textarea class="form-control" rows="8" disabled ><?php echo $arraySolicitudDatos['comentario_cli_soli'];?></textarea>
+                                                                                <?php };?>
 	                                                                            <br>
 	                                                                    </article>
 	                                                                </div>

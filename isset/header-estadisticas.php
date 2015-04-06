@@ -23,7 +23,7 @@ require_once('conexion.php');
 	
 	//consulta total de Pedidos Finalizados
 
-	$sqlSolicitudFinalizada="select producto.*, solicitud.* from solicitud, producto where producto.id_prod=solicitud.producto_id_soli and solicitud.estado_solicitud_soli='finalizado' order by solicitud.fec_solicitud_soli desc";
+	$sqlSolicitudFinalizada="select producto.*, solicitud.* from solicitud, producto where producto.id_prod=solicitud.producto_id_soli and (solicitud.estado_solicitud_soli='finalizado' or solicitud.estado_solicitud_soli='oculto') order by solicitud.fec_solicitud_soli desc";
     $ejecSolicitudFinalizada=mysql_query($sqlSolicitudFinalizada, $conexion);
     $countSolicitudFinalizada = mysql_num_rows($ejecSolicitudFinalizada);
 

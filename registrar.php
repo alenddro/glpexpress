@@ -27,9 +27,8 @@ session_start();
         $dir=$_POST['direccion'];
         $tel=$_POST['telefono'];
         $em=$_POST['email'];
-        $term=$_POST['terminos'];
 
-        $sqlActualizarUsuario="update usuario set nombreusu_usu='$usu', password_usu='$pass', nombre_usu='$nom', apellido_usu='$ape', direccion_usu='$dir', telefono_usu='$tel', email_usu='$em', terminosycondiciones_usu='0' where id_usu='$id'";
+        $sqlActualizarUsuario="update usuario set nombreusu_usu='$usu', password_usu='$pass', nombre_usu='$nom', apellido_usu='$ape', direccion_usu='$dir', telefono_usu='$tel', email_usu='$em' where id_usu='$id'";
         $ejecActualizarUsuario = mysql_query($sqlActualizarUsuario, $conexion);
 
             if ($ejecActualizarUsuario) {;?>
@@ -41,7 +40,7 @@ session_start();
 
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                      <h4 class="modal-title" id="myLargeModalLabel">Gracias <span class="nombreregistro"><?php echo $nom;?></span> sus datos fueron cambiados</h4>
+                      <h4 class="modal-title" id="myLargeModalLabel">Gracias <span class="nombreregistro"><?php echo $nom;?></span> sus datos fueron cambiados Vuelva a iniciar sesion para aplciar los cambios!</h4>
                     </div>
                     <div class="modal-body">
                         <img src="img/logo.gif" alt="">
@@ -52,7 +51,7 @@ session_start();
 
             <script>
              setTimeout(function () {
-               window.location.href = "solicita.php";
+               window.location.href = "index.html";
             }, 3000);
             </script>
 
@@ -74,10 +73,10 @@ session_start();
         $dir=$_POST['direccion'];
         $tel=$_POST['telefono'];
         $em=$_POST['email'];
-        $term=$_POST['terminos'];
+        $tipo_trabajador=$_POST['tipo_trabajador'];
 
 
-        $sqlInsertarUsuario="insert into usuario (nombreusu_usu, password_usu, nombre_usu, apellido_usu, direccion_usu, telefono_usu, email_usu, terminosycondiciones_usu, esadmin) values ('$usu','$pass','$nom','$ape','$dir','$tel','$em','$term','1')";
+        $sqlInsertarUsuario="insert into usuario (nombreusu_usu, password_usu, nombre_usu, apellido_usu, direccion_usu, telefono_usu, email_usu, terminosycondiciones_usu,esadmin) values ('$usu','$pass','$nom','$ape','$dir','$tel','$em','si','$tipo_trabajador')";
         $ejecInsertarUsuario = mysql_query($sqlInsertarUsuario, $conexion);
 
         if ($ejecInsertarUsuario) {;?>

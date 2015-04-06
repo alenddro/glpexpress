@@ -92,7 +92,19 @@ border-color: #FFF;
     border:rgb(255, 239, 50) 10px dotted;
 }
 
+#formulario-solicita #metodopago{
+    background: #fff;
+    border-radius: 5px;
+    color: black;
 
+}
+#formulario-solicita #metodopago .dropdown-metodo-pago{
+    background: #fff;
+    border:0;
+    font-size: 18px;
+    color: black;
+
+}
 /*registro.php*/
 
 #registrarphp{
@@ -121,6 +133,11 @@ border-color: #FFF;
     padding: 10px;
     color: black;
     margin-top: 5px;
+}
+
+#tipo_comentario{
+    border-radius: 3px;
+    font-size: 24px;
 }
 /*administrar.php*/
 

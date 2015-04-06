@@ -17,7 +17,7 @@ require_once('conexion.php');
         if ($_SESSION['esadmin']==2) {
            
              //listado trabajaores
-            $sqlListadoTrabajadores="select * from usuario where esadmin='1' order by id_usu desc";
+            $sqlListadoTrabajadores="select * from usuario where (esadmin='1' or esadmin='3') order by id_usu desc";
             $ejecListadoTrabajadores=mysql_query($sqlListadoTrabajadores, $conexion);
             
         }    
@@ -116,6 +116,20 @@ require_once('conexion.php');
                                                                             <br>
                                                                             <label>Email</label>
                                                                             <input  value="<?php echo $arrayListadoTrabajadores['email_usu']?>" type="text" disabled name="nombre" class="form-control" required="" autofocus="">
+                                                                            <br>
+                                                                            <label>Tipo de Trabajador</label>
+                                                                            <?php
+                                                                                if ($arrayListadoTrabajadores['esadmin']==3) {
+                                                                                    $tipo_tarbajador="Secretaria";
+                                                                                }elseif($arrayListadoTrabajadores['esadmin']==1){
+                                                                                    $tipo_tarbajador="Trabajador";
+                                                                                }else{
+                                                                                    $tipo_tarbajador="No especificado";
+                                                                                }
+
+
+                                                                            ?>
+                                                                            <input  value="<?php echo $tipo_tarbajador;?>" type="text" disabled name="nombre" class="form-control" required="" autofocus="">
                                                                             <br>
                                                                             <label>Nombre de Usuario</label>
                                                                             <input  value="<?php echo $arrayListadoTrabajadores['nombreusu_usu']?>" type="text" disabled name="email" class="form-control" required="" autofocus="">

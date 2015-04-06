@@ -55,7 +55,8 @@ require_once('conexion.php');
     <section id="usuLogueado" style="margin-top: 67px;" class="container">
         <div class="row">
             <div class="col-xs-12">
-                <p><small>Bienvenido Usuario: <strong><i class="nombreusu"><?php echo $_SESSION['nombre_usu'];?></i></strong></small><a href="modificardatos.php" style="text-decoration:none;"> Modificar datos de la cuenta</a></p> 
+                <p><small>Bienvenido Usuario: <strong><i class="nombreusu"><?php echo $_SESSION['nombre_usu'];?></i></strong></small></p>
+                <p><a href="modificardatos.php" style="text-decoration:none;"> Modificar datos de la cuenta</a></p>
                 <p><small><a style="text-decoration:none;" href="listado.php">Ver mis solicitudes</a></small></p>
                 <p><small><a style="text-decoration:none;" href="cierra_session.php">Cerrar Sesion</a></small></p>
             </div>
@@ -86,32 +87,34 @@ require_once('conexion.php');
                             </div>
                             <div class="col-xs-6 col-md-6 text-left radio-gas">
                                 <input type="radio" name="idgas" value="<?php echo $id[1]?>"><?php echo  $producto[1];?>
-                                  <label>$<?php echo $valor[1];?></label>
-
+                                <label>$<?php echo $valor[1];?></label>
                             </div>
+
                             <div class="clearfix"></div>
                             <div class="col-xs-6 col-md-6 text-right">
                                 <img src="img/45kg.jpg" alt="45kg" width="100">
                             </div>
                             <div class="col-xs-6 col-md-6 text-left radio-gas">
                                 <input type="radio" name="idgas" value="<?php echo $id[2]?>"><?php echo  $producto[2];?>
-                                  <label>$<?php echo $valor[2];?></label>
+                                <label>$<?php echo $valor[2];?></label>
+                            </div>
 
-                            </div>
                             <div class="clearfix"></div>
-                            </div>
                             <div class="row">
-                            <div class="col-xs-12 text-center">
-                                <input type="checkbox" name="terminos" value="si">Enviar mi Localizacion actual
+                                <div class="col-xs-12 text-center">
+                                    <input type="checkbox" name="terminos" value="si">Enviar mi Localizacion actual
+                                </div>
                             </div>
-                            <div class="col-xs-12 form-control">
-                                <select name="metodopago_cli" id="metodopago">
+
+                            <div class="col-xs-12 text-center" id="metodopago">
+                                <h2>Modo De Pago:</h2>
+                                <select name="metodopago_cli" class="dropdown-metodo-pago">
                                     <option value="efectivo">Efectivo</option>
                                     <option value="credito">Credito Casa Comercial</option>
-                                    <option value="cheque">Cheque</option>
                                     <option value="visa">Visa-Master card</option>
                                 </select>
                             </div>
+
                             <div class="row">
                                 <div class="col-xs-12 text-center">
                                     <button class="btn btn-lg btn-warning btn-block" type="submit">Solicitar</button>

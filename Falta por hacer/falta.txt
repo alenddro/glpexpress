@@ -1,0 +1,12 @@
+crear campo en la tabla de usuario para que se puedan loguear con rut o correo electronico
+las solicitudes le llegue a la secretaria y la secretaria deribe quien esta activo para darsela
+crear tabla de trabajadores que estaran tranbajando en el dia: 
+CAMPOS DE LA TABLA:
+-id_tra_act
+-nombre_tra_act
+-apellido_tra_act
+-usuario_tra_act
+-camion_tra_act
+-stock_gas_tra_act
+-fec_entrega_tra_act
+-estado_tra_act

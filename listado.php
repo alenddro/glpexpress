@@ -13,7 +13,7 @@ require_once('conexion.php');
             $cliid=$arrayIDusuarioLogueado['id_usu'];
 
              //mis solicitudes
-            $sqlSolicitud="select producto.*, solicitud.* from solicitud, producto where solicitud.cliente_id_soli='$cliid' and producto.id_prod=solicitud.producto_id_soli order by solicitud.fec_solicitud_soli desc";
+            $sqlSolicitud="select producto.*, solicitud.* from solicitud, producto where solicitud.cliente_id_soli='$cliid' and producto.id_prod=solicitud.producto_id_soli and (solicitud.estado_solicitud_soli='finalizado' or solicitud.estado_solicitud_soli='activo') order by solicitud.fec_solicitud_soli desc";
             $ejecSolicitud=mysql_query($sqlSolicitud, $conexion);
 
         }elseif($_SESSION['esadmin']==1 || $_SESSION['esadmin']==2 ){
@@ -60,12 +60,19 @@ require_once('conexion.php');
           </div>
         </div>
     </header>
-         <a href="cierra_session.php">Cerrar Sesion</a>
-         <?php if ( $_SESSION['esadmin']==2){ ?>
-            <a href="administrar.php">Regresar al Menu principal</a>
-         <?php }else if($_SESSION['esadmin']==0){?>
-            <a href="solicita.php">Regresar a Solicitudes</a>
-        <?php } ?>
+
+     <section class="container">
+            <div class="row">
+                <a href="cierra_session.php">Cerrar Sesion</a>
+                <?php if ( $_SESSION['esadmin']==2){ ?>
+                    <br>
+                    <a href="administrar.php">Regresar al Menu principal</a>
+                <?php }else if($_SESSION['esadmin']==0){?>
+                    <br>
+                    <a href="solicita.php">Regresar a Solicitudes</a>
+                <?php } ?>
+            </div>
+        </section>
     <div class="jumbotron" id="formulario-registro">
         <section id="principal-registro" class="container-fluid">
             <div class="row">
@@ -100,34 +107,59 @@ require_once('conexion.php');
                                                 if ($_SESSION['esadmin']==0) {
                                                     while($arraySolicitud=mysql_fetch_array($ejecSolicitud)){
                                                    ?>
-                                                          <?php $estado=$arraySolicitud['estado_solicitud_soli'];?>
-                                                          <?php if ($estado=='finalizado'){ ?>
-                                                              <div class="col-xs-12"  style="background:yellow;opacity:0.5; font-size:20px; padding:10px;color:black;margin-top:5px;">  
-                                                                  <?php echo "Codigo Solicitud: ".$arraySolicitud['id_soli']." | "?>&nbsp;<?php echo $arraySolicitud['fec_solicitud_soli'] ." | ";?>&nbsp;<?php echo $arraySolicitud['nombre_prod'] ." | ";?>&nbsp;<?php $estado = $arraySolicitud['estado_solicitud_soli'] == 'finalizado' ? "FINALIZADA " : "ACTIVO"; echo $estado;?>
-                                                                  <div class="datossoliusuario collapse" id="versolicitud-usuario<?php echo $arraySolicitud['id_soli'];?>">
-                                                                      <form action="enviarcomentario.php">
-                                                                          <h1>Comentario</h1>
-                                                                          <textarea name="" id="" cols="30" rows="10">
-                                                                            
-                                                                          </textarea>
-                                                                          <br>
-                                                                          <input type="submit" value="Enviar">
-                                                                      </form> 
-                                                                  </div>
-                                                                  <div class="text-right">
+                                                          <?php $estado=$arraySolicitud['estado_solicitud_soli'];
+                                                                $tipo_comentario_cliente=$arraySolicitud['tipo_comentario_cli_soli'];
+                                                                $comentario_cliente=$arraySolicitud['comentario_cli_soli'];
+
+                                                          ?>
+                                                          <?php if ($estado=='finalizado' && empty($tipo_comentario_cliente) && empty($comentario_cliente)){ ?>
+                                                              <div class="col-xs-12"  style="background:yellow;opacity:0.5; font-size:20px; padding:10px;color:black;margin-top:5px;line-height: 45px;">  
+                                                                  <div class="col-xs-8"><?php echo "Solicitud:".$arraySolicitud['id_soli']." | "?>&nbsp;<?php echo $arraySolicitud['fec_solicitud_soli'] ." | ";?>&nbsp;<?php echo $arraySolicitud['nombre_prod'] ." | ";?>&nbsp;<?php echo "FINALIZADA";?></div>
+                                                                  <div class="text-right col-xs-4">
                                                                       <a href="#versolicitud-usuario<?php echo $arraySolicitud['id_soli']?>" data-toggle="collapse" class="btn btn-primary btn-lg">
                                                                             Dejar un comentario
                                                                       </a>
-                                                                      <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">
-                                                                            Eliminar
-                                                                      </button>
+                                                                      <a href="eliminarsolicitud.php?l=<?php echo $arraySolicitud['id_soli']?>" class="btn btn-danger btn-lg" style="color:white;">Eliminar</a>
+                                                                  </div>
+                                                                  <div class="datossoliusuario collapse col-xs-12" id="versolicitud-usuario<?php echo $arraySolicitud['id_soli'];?>">
+                                                                      <form action="enviarcomentario.php" id="myform<?php echo $arraySolicitud['id_soli']?>" method="GET">
+                                                                          <input type="hidden" name="l" value="<?php echo $arraySolicitud['id_soli']?>">
+                                                                          <h2>Tipo de Comentario</h2>
+                                                                          <select name="tipo_comentario" id="tipo_comentario">
+                                                                            <option value="reclamo">Reclamo</option>
+                                                                            <option value="felicitacion">Felicitaziones</option>
+                                                                            <option value="mejoras">Mejorar</option>
+                                                                            <option value="otro">Otro</option>
+                                                                          </select>
+
+                                                                          <h1>Comentario</h1>
+                                                                          <textarea name="comentario_cli" maxlength="800" class="form-control" rows="8" autofocus>
+                                                                          </textarea>
+                                                                          <br>
+                                                                          <a href="#" class="btn btn-primary" style="color:white;" onclick="document.getElementById('myform<?php echo $arraySolicitud['id_soli']?>').submit()">Enviar Comentario</a>
+                                                                      </form>
                                                                   </div>
                                                               </div>
                                                            <?php }else{?>
 
-                                                              <div class="col-xs-12" id="versolicitud-usuario<?php echo $arraySolicitud['id_soli'];?>" style="background:yellow;opacity:0.5; font-size:20px; padding:10px;color:black;margin-top:5px;">
-                                                                  <?php echo "Codigo Solicitud: ".$arraySolicitud['id_soli']." | "?>&nbsp;<?php echo $arraySolicitud['fec_solicitud_soli'] ." | ";?>&nbsp;<?php echo $arraySolicitud['nombre_prod'] ." | ";?>&nbsp;<?php $estado = $arraySolicitud['estado_solicitud_soli'] == 'finalizado' ? "FINALIZADA " : "ACTIVO"; echo $estado;?>
+
+                                                              <div class="col-xs-12" id="versolicitud-usuario<?php echo $arraySolicitud['id_soli'];?>" style="background:yellow;opacity:0.5; font-size:20px; padding:10px;color:black;margin-top:5px;line-height: 45px;">
+                                                                  <?php
+                                                                        $estado=$arraySolicitud['estado_solicitud_soli'];
+                                                                        if ($estado=='activo'){ ?>
+                                                                        <?php echo "&nbsp;&nbsp;&nbsp;Solicitud: ".$arraySolicitud['id_soli']." | "?>&nbsp;<?php echo $arraySolicitud['fec_solicitud_soli'] ." | ";?>&nbsp;<?php echo $arraySolicitud['nombre_prod'] ." | ";?>&nbsp;<?php echo "ACTIVO";?>
+                                                                  <?php } ?>
+                                                                  
+                                                                  <?php
+                                                                    $estado=$arraySolicitud['estado_solicitud_soli'];
+                                                                    if ($estado=='finalizado'){ ?>
+
+                                                                       <div class="col-xs-8"><?php echo "Solicitud: ".$arraySolicitud['id_soli']." | "?>&nbsp;<?php echo $arraySolicitud['fec_solicitud_soli'] ." | ";?>&nbsp;<?php echo $arraySolicitud['nombre_prod'] ." | ";?>&nbsp;<?php echo "FINALIZADA";?></div> 
+                                                                       <div class="col-xs-4 text-right"><a href="eliminarsolicitud.php?l=<?php echo $arraySolicitud['id_soli']?>" class="btn btn-danger btn-lg" style="color:white;">Eliminar</a></div>
+                                                                  
+                                                                  <?php } ?>
                                                               </div>
+
 
 
 

@@ -1,16 +1,16 @@
 <?php session_start();
 header('Content-Type: text/html; charset=ISO-8859-1');
 require_once('conexion.php');
-	
+
 	//Consulta total de usuarios
-	
+
 	$sqlTotalUsuarios = "select * from usuario where esadmin = 0";
 	$ejecTotalUsuarios = mysql_query($sqlTotalUsuarios, $conexion);
 	$countTotalUsuarios = mysql_num_rows($ejecTotalUsuarios);
-	
+
 	//Consulta total de Trabajadores
 
-	$sqlTotalTrabajadores = "select * from usuario where esadmin = 1";
+	$sqlTotalTrabajadores = "select * from usuario where (esadmin = 1 or esadmin = 3) ";
 	$ejecTotalTrabajadores = mysql_query($sqlTotalTrabajadores, $conexion);
 	$countTotalTrabajadores = mysql_num_rows($ejecTotalTrabajadores);
 
@@ -21,16 +21,16 @@ require_once('conexion.php');
     $countSolicitudActiva = mysql_num_rows($ejecSolicitudActiva);
 
 
-	
+
 	//consulta total de Pedidos Finalizados
 
-	$sqlSolicitudFinalizada="select producto.*, solicitud.* from solicitud, producto where producto.id_prod=solicitud.producto_id_soli and solicitud.estado_solicitud_soli='finalizado' order by solicitud.fec_solicitud_soli desc";
+	$sqlSolicitudFinalizada="select producto.*, solicitud.* from solicitud, producto where producto.id_prod=solicitud.producto_id_soli and (solicitud.estado_solicitud_soli='finalizado' or solicitud.estado_solicitud_soli='oculto') order by solicitud.fec_solicitud_soli desc";
     $ejecSolicitudFinalizada=mysql_query($sqlSolicitudFinalizada, $conexion);
     $countSolicitudFinalizada = mysql_num_rows($ejecSolicitudFinalizada);
 
     //consulta total de soliciuted por cada trabajador
 
-    $sqlTotalSolicitudesPorTrabajador ="select finalizado_por_soli,COUNT(*) from solicitud where estado_solicitud_soli='finalizado' group by finalizado_por_soli";
+    $sqlTotalSolicitudesPorTrabajador ="select finalizado_por_soli,COUNT(*) from solicitud where (estado_solicitud_soli='finalizado' or solicitud.estado_solicitud_soli='oculto') group by finalizado_por_soli";
     $ejecTotalSolicitudesPorTrabajador = mysql_query($sqlTotalSolicitudesPorTrabajador, $conexion);
 
 
@@ -49,7 +49,7 @@ require_once('conexion.php');
 	</head>
 	<body>
 		<header>
-	        <div class="navbar navbar-inverse navbar-fixed-top" id="nav-lipigas" role="navigation">
+	        <div class="navbar navbar-inverse navbar-default" id="nav-lipigas" role="navigation">
 	          <div class="container">
 	            <div class="navbar-header">
 	              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -74,17 +74,17 @@ require_once('conexion.php');
 	            <div class="col-xs-12">
 	                <a href="cierra_session.php">Cerrar Sesion</a>
 	                <br>
-	                <a href="administrar.php">Volver a Menu Pricipal</a>
+	                <a href="administrar.php">Regresar al Menu Pricipal</a>
 	            </div>
-	        </div>     
+	        </div>
 	    </section>
-		
+
 		<section class="container-fluid">
 			<article class="row">
 				<div class="container">
 					<div class="row">
 						<table class="table table-hover">
-							<thead>		
+							<thead>
 								<tr>
 									<th>#</th>
 									<th>Totales</th>
@@ -122,7 +122,7 @@ require_once('conexion.php');
 				<div class="container">
 					<div class="row">
 						<table class="table table-hover">
-							<thead>		
+							<thead>
 								<tr>
 									<th>#</th>
 									<th>Totales</th>
@@ -131,12 +131,11 @@ require_once('conexion.php');
 							</thead>
 							<?php while($arrayTotalSolicitudesPorTrabajador=mysql_fetch_array($ejecTotalSolicitudesPorTrabajador)){?>
 								<tr>
-									<?php 
-									
+									<?php
 										$id_trabajador = $arrayTotalSolicitudesPorTrabajador['finalizado_por_soli'];
 										$sqlNombreApellidoTrabajador = "select nombre_usu, apellido_usu from usuario where id_usu='$id_trabajador' and esadmin='1' ";
 										$ejecNombreApellidoTrabajador = mysql_query($sqlNombreApellidoTrabajador, $conexion);
-										
+
 									?>
 								    <?php
 								   		while($arrayNombreApellidoTrabajador=mysql_fetch_array($ejecNombreApellidoTrabajador)){
@@ -145,12 +144,11 @@ require_once('conexion.php');
 									<?php } ?>
 									<td><?php echo $arrayTotalSolicitudesPorTrabajador['COUNT(*)'];?></td>
 								</tr>
-							<?php }?>	
-						</table>			
+							<?php }?>
+						</table>
 				</div>
 			</article>
 		</section>
 		<?php require_once("isset/footer.html");?>
-		
 	</body>
 </html>

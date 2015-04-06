@@ -90,13 +90,19 @@
                                                 <br>
                                                 <label>Telefono</label>
                                                 <input type="tel" name="telefono" class="form-control" required="" autofocus="">
-                                                 <br>
+                                                <br>
                                                 <label>E-mail</label>
                                                 <input type="email" name="email" class="form-control" required="" autofocus="">
-                                                 <br>
-                                                <label class="checkbox">
-                                                <input type="checkbox" name="terminos" value="si"> Acepto los terminos y condiciones!
-                                                </label>
+                                                <br>
+                                                <label>Tipo de Tarbajador</label>
+                                                <br>
+                                                <select name="tipo_trabajador" class="col-xs-12" style="border-radius:3px;height:35px;" id="tipo_trabajador">
+                                                    <option value="1">Trabajador</option>
+                                                    <option value="3">Secretaria</option>
+                                                </select>
+                                                <br>
+                                                <br>
+                                                <br>
                                                 <button class="btn btn-lg btn-warning btn-block" type="submit">Registrarme!</button>
                                             </form>
 
