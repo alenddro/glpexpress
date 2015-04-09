@@ -6,7 +6,6 @@ session_start();
 <head>
 	<meta charset="UTF-8">
 	<title>Agregar Producto</title>
-	<title>Home</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/estilos.css">
 	<link href="css/sticky-footer.css" rel="stylesheet">

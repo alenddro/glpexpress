@@ -54,7 +54,8 @@ require_once('conexion.php');
 				    </section>
 
 					<div class="container">
-						<div class="row">
+						<?php if ($_SESSION['esadmin']==2){;?>
+                        <div class="row">
 							<article class="col-sm-4 col-sm-offset-2 col-xs-12 col-dashboard">
                                 <a href="#area-trabajador" data-toggle="collapse"  title="Trabajadores">
                                     <div><h3>Area Trabajador</h3></div>
@@ -64,16 +65,17 @@ require_once('conexion.php');
                                    <a class="col-xs-12" href="listartrabajadores.php"><img src="img/listado.png" width="30" alt="agregarusuario">Listar Trabajador</a>
                                 </p>
                             </article>
-                            <article class="col-sm-4 col-xs-12 col-dashboard">
-                                <a href="#area-solicitudes" data-toggle="collapse" title="Solicitudes">
-                                    <div ><h3>Area Solicitudes</h3></div>
+                             <article class="col-sm-4 col-xs-12 col-dashboard">
+                                <a href="#area-camiones" data-toggle="collapse" title="Camiones">
+                                    <div ><h3>Area Camiones</h3></div>
                                 </a>
-                                <div id="area-solicitudes" class="collapse">
-                                   <a class="col-xs-12" href="listado.php"><img src="img/checklist.png" width="30" alt="agregarusuario">Solicitudes Activas</a>
-                                   <a class="col-xs-12" href="listadofinalizado.php"><img src="img/checklistfull.jpg" width="30" alt="agregarusuario">Solicitudes Finalizadas</a>
+                                <div id="area-camiones" class="collapse">
+                                   <a class="col-xs-12" href="agregarcamiones.php"><img src="img/checklist.png" width="30" alt="agregarcamiones">Agregar camiones</a>
+                                   <a class="col-xs-12" href="listarcamiones.php"><img src="img/checklistfull.jpg" width="30" alt="listarcamiones">Listar camiones</a>
                                 </div>
                             </article>
 						</div>
+                        <?php };?>
                         <div class="row">
                         	<article class="col-sm-4 col-sm-offset-2 col-xs-12 col-dashboard">
                                 <a href="estadisticas.php" title="Estadisticas">
@@ -100,13 +102,33 @@ require_once('conexion.php');
                                    <a class="col-xs-12" href="listaroferta.php"><img src="img/checklistfull.jpg" width="30" alt="listaroferta">Listar Oferta</a>
                                 </div>
                             </article>
-                             <article class="col-sm-4 col-xs-12 col-dashboard">
-                                <a href="#area-camiones" data-toggle="collapse" title="Camiones">
-                                    <div ><h3>Area Camiones</h3></div>
+                            <article class="col-sm-4 col-xs-12 col-dashboard">
+                                <a href="#area-solicitudes" data-toggle="collapse" title="Solicitudes">
+                                    <div ><h3>Area Solicitudes</h3></div>
                                 </a>
-                                <div id="area-camiones" class="collapse">
-                                   <a class="col-xs-12" href="agregarcamiones.php"><img src="img/checklist.png" width="30" alt="agregarcamiones">Agregar camiones</a>
-                                   <a class="col-xs-12" href="listarcamiones.php"><img src="img/checklistfull.jpg" width="30" alt="listarcamiones">Listar camiones</a>
+                                <div id="area-solicitudes" class="collapse">
+                                   <a class="col-xs-12" href="listado.php"><img src="img/checklist.png" width="30" alt="agregarusuario">Solicitudes Activas</a>
+                                   <a class="col-xs-12" href="listadofinalizado.php"><img src="img/checklistfull.jpg" width="30" alt="agregarusuario">Solicitudes Finalizadas</a>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="row">
+                             <article class="col-sm-4 col-sm-offset-2 col-xs-12 col-dashboard">
+                                <a href="#area-promocion" data-toggle="collapse" title="Promocion">
+                                    <div ><h3>Area Promocion</h3></div>
+                                </a>
+                                <div id="area-promocion" class="collapse">
+                                   <a class="col-xs-12" href="agregarpromocion.php"><img src="img/checklist.png" width="30" alt="agregarpromocion">Agregar Promocion</a>
+                                   <a class="col-xs-12" href="listarpromocion.php"><img src="img/checklistfull.jpg" width="30" alt="listarpromocion">Listar Promocion</a>
+                                </div>
+                            </article>
+                             <article class="col-sm-4 col-xs-12 col-dashboard">
+                                <a href="#administrar-trabajador" data-toggle="collapse" title="Camiones">
+                                    <div ><h3>Administrar Trabajador</h3></div>
+                                </a>
+                                <div id="administrar-trabajador" class="collapse">
+                                   <a class="col-xs-12" href="administrartrabajador.php"><img src="img/checklist.png" width="30" alt="agregarcamiones">Habilitar Trabajador</a>
+                                   <a class="col-xs-12" href="listarcamiones.php"><img src="img/checklistfull.jpg" width="30" alt="listarcamiones">Desabiliatr Trabajador</a>
                                 </div>
                             </article>
                         </div>

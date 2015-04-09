@@ -5,7 +5,7 @@ session_start();
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Agregar Oferta</title>
+	<title>Agregar Promocion</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/estilos.css">
 	<link href="css/sticky-footer.css" rel="stylesheet">
@@ -18,26 +18,26 @@ session_start();
 	?>
 	<section id="oferta">
 		<article>
-			<form action="agregaroferta2.php" enctype="multipart/form-data" method="POST" role="form" class="form_oferta">
+			<form action="agregarpromocion2.php" enctype="multipart/form-data" method="POST" role="form" class="form_oferta">
 				<div class="agregar-oferta">
 					<div class="form-group">
-						<label for="nombreOferta">Titulo Oferta</label>
-						<input type="text" class="form-control" name="titulo_oferta" placeholder="ingrese Titulo de Oferta">
+						<label for="nombreOferta">Titulo promocion</label>
+						<input type="text" class="form-control" name="titulo_promocion" placeholder="ingrese Titulo de promocion">
 						<hr>
 					</div>
 					<div class="form-group">
-						<label for="nombreImagen">Imagen Oferta</label>	
-						<input type="file" class="form-control" name="ruta_oferta" placeholder="imagen del oferta">
+						<label for="nombreImagen">Imagen promocion</label>	
+						<input type="file" class="form-control" name="ruta_img_promocion" placeholder="imagen del promocion">
 						<hr>
 					</div>	
 					<div class="form-group">
-						<label for="valoroferta">Valor Oferta</label>	
-						<input type="text" class="form-control" name="valor_oferta" rows="10" placeholder="Ingrese Valor oferta ($)"></input>
+						<label for="valorpromocion">Valor promocion</label>	
+						<input type="text" class="form-control" name="valor_promocion" rows="10" placeholder="Ingrese Valor promocion ($)"></input>
 						<hr>
 					</div>	
 					<div class="form-group">
-						<label for="stockoferta">Stock Oferta</label>	
-						<input type="text" class="form-control" name="stock_oferta" rows="10" placeholder="Ingrese Cantidad oferta"></input>
+						<label for="stockpromocion">Stock promocion</label>	
+						<input type="text" class="form-control" name="stock_promocion" rows="10" placeholder="Ingrese Cantidad promocion"></input>
 						<hr>
 					</div>
 					<button type="submit" class="btn btn-default">Guardar</button>

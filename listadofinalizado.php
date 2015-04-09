@@ -2,7 +2,7 @@
 require_once('conexion.php');
 
 
-    if($_SESSION['esadmin']==1 || $_SESSION['esadmin']==2 ){
+    if($_SESSION['esadmin']==1 || $_SESSION['esadmin']==2 || $_SESSION['esadmin']==3 ){
 
         //Todos los pedidos activos
         $sqlSolicitud="select producto.*, solicitud.* from solicitud, producto where producto.id_prod=solicitud.producto_id_soli and (solicitud.estado_solicitud_soli='finalizado' or solicitud.estado_solicitud_soli='oculto')  order by solicitud.fec_solicitud_soli desc";
@@ -48,7 +48,7 @@ require_once('conexion.php');
 	    <section class="container">
 	   		<div class="row">
 		        <a href="cierra_session.php">Cerrar Sesion</a>
-		        <?php if ( $_SESSION['esadmin']==2){ ?>
+		        <?php if ( $_SESSION['esadmin']==2 || $_SESSION['esadmin']==3){ ?>
                     <br>
 		            <a href="administrar.php">Regresar al Menu principal</a>
 		        <?php } ?>
@@ -93,7 +93,7 @@ require_once('conexion.php');
                                                         <a href="javascript:;" class="btn btn-default">Sin Comentarios</a>
                                                     </div>
 	                                               <?php
-	                                                if($_SESSION['esadmin']==1 || $_SESSION['esadmin']==2){
+	                                                if($_SESSION['esadmin']==1 || $_SESSION['esadmin']==2 || $_SESSION['esadmin']==3){
 	                                                    while($arraySolicitud=mysql_fetch_array($ejecSolicitud)){
 
 	                                                        

@@ -59,7 +59,7 @@
 
 
         <?php
-        } elseif($_SESSION['esadmin']==2){
+        } elseif($_SESSION['esadmin']==2 or $_SESSION['esadmin']==3){
 
         ?>
 

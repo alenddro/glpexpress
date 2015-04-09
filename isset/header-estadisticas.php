@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require_once('conexion.php');
 
 //Consulta total de usuarios
@@ -28,7 +29,7 @@ require_once('conexion.php');
     $countSolicitudFinalizada = mysql_num_rows($ejecSolicitudFinalizada);
 
 ?>
-
+<?php if ($_SESSION['esadmin']==2) {;?>
 	<section class="container-fluid" id="header-estadisticas">
 		<article class="row">
 			<div class="col-sm-12 col-md-3 text-center header-estadisticas">
@@ -62,3 +63,30 @@ require_once('conexion.php');
 
 		</article>
 	</section>
+<?};?>
+<?php if ($_SESSION['esadmin']==3) {;?>
+	<section class="container-fluid" id="header-estadisticas">
+			<article class="row">
+				<div class="col-sm-12 col-md-6 text-center header-estadisticas">
+					<p>Total de Pedidos Activos</p>
+					<p><strong><?php echo $countSolicitudActiva;?></strong></p>
+				</div>
+
+				<div class="col-sm-12 col-md-6 text-center header-estadisticas">
+					<p>Total de Pedidos Finalizados</p>
+					<p><strong><?php echo $countSolicitudFinalizada;?></strong></p>
+				</div>
+
+				<!-- <div class="col-xs-12 col-md-3" style="border-left:#f0ad4e 3px solid;">
+					<p></p>
+					<p></p>
+				</div>
+
+				<div class="col-xs-12 col-md-3" style="border-left:#f0ad4e 3px solid;">
+					<p></p>
+					<p></p>
+				</div> -->
+
+			</article>
+	</section>
+<?};?>	

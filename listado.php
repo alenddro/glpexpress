@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=ISO-8859-1');
 require_once('conexion.php');
 
 
-        if ($_SESSION['esadmin']==0) {
+        if ($_SESSION['esadmin']==0 || $_SESSION['esadmin']==1) {
 
              //id usuario logueado
             $sqlIDusuarioLogueado="select * from usuario where nombreusu_usu='$_SESSION[nombreusu_usu]'";
@@ -12,21 +12,22 @@ require_once('conexion.php');
 
             $cliid=$arrayIDusuarioLogueado['id_usu'];
 
-             //mis solicitudes
-            $sqlSolicitud="select producto.*, solicitud.* from solicitud, producto where solicitud.cliente_id_soli='$cliid' and producto.id_prod=solicitud.producto_id_soli and (solicitud.estado_solicitud_soli='finalizado' or solicitud.estado_solicitud_soli='activo') order by solicitud.fec_solicitud_soli desc";
-            $ejecSolicitud=mysql_query($sqlSolicitud, $conexion);
+             //mis solicitudes de cliente
+            if ($_SESSION['esadmin']==0){ 
+                $sqlSolicitud="select producto.*, solicitud.* from solicitud, producto where solicitud.cliente_id_soli='$cliid' and producto.id_prod=solicitud.producto_id_soli and (solicitud.estado_solicitud_soli='finalizado' or solicitud.estado_solicitud_soli='activo') order by solicitud.fec_solicitud_soli desc";
+                $ejecSolicitud=mysql_query($sqlSolicitud, $conexion);
+            }elseif($_SESSION['esadmin']==1){
+              //Todos los pedidos activos del trabajador
+                $sqlSolicitud="select producto.*, solicitud.* from solicitud, producto where producto.id_prod=solicitud.producto_id_soli and solicitud.estado_solicitud_soli='activo' and solicitud.asignado_a_soli='$cliid' order by solicitud.fec_solicitud_soli desc";
+                $ejecSolicitud=mysql_query($sqlSolicitud, $conexion);
+            }
 
-        }elseif($_SESSION['esadmin']==1 || $_SESSION['esadmin']==2 ){
+        }elseif($_SESSION['esadmin']==2 || $_SESSION['esadmin']==3){
 
             //Todos los pedidos activos
             $sqlSolicitud="select producto.*, solicitud.* from solicitud, producto where producto.id_prod=solicitud.producto_id_soli and solicitud.estado_solicitud_soli='activo' order by solicitud.fec_solicitud_soli desc";
             $ejecSolicitud=mysql_query($sqlSolicitud, $conexion);
-
-
-
-
-        }
-
+        }    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +65,7 @@ require_once('conexion.php');
      <section class="container">
             <div class="row">
                 <a href="cierra_session.php">Cerrar Sesion</a>
-                <?php if ( $_SESSION['esadmin']==2){ ?>
+                <?php if ( $_SESSION['esadmin']==2 || $_SESSION['esadmin']==3){ ?>
                     <br>
                     <a href="administrar.php">Regresar al Menu principal</a>
                 <?php }else if($_SESSION['esadmin']==0){?>
@@ -170,7 +171,7 @@ require_once('conexion.php');
                                                   
                                                    <?php  
                                                     }
-                                                }elseif($_SESSION['esadmin']==1 || $_SESSION['esadmin']==2){
+                                                }elseif($_SESSION['esadmin']==1 || $_SESSION['esadmin']==2 || $_SESSION['esadmin']==3){
                                                     while($arraySolicitud=mysql_fetch_array($ejecSolicitud)){
 
                                                         
@@ -234,9 +235,21 @@ require_once('conexion.php');
                                                                             <?php if ($_SESSION['esadmin']==1){ ?>
                                                                                     <div class="btn btn-success"><a href="finalizar-pedido.php?l=<?php echo $arraySolicitud['id_soli']?>" style="color:white;">Finalizar Pedido</a></div>
                                                                                     <div class="btn btn-danger"><a href="rechazar-pedido.php?l=<?php echo $arraySolicitud['id_soli']?>" style="color:white;">Rechazar Pedido</a></div>
-                                                                            <?php } ?>
-                                                                      
-
+                                                                            <?php }elseif($_SESSION['esadmin']==3){;?>
+                                                                                    <form action="asignar-pedido.php" id="myformAsignar<?php echo $arraySolicitud['id_soli']?>" method="GET">
+                                                                                        <label>Asignar A</label>
+                                                                                        <select name="asignar_a" id="asignar" class="form-control">
+                                                                                            <option value="Mario">Mario</option>
+                                                                                            <option value="Mario">Mario2</option>
+                                                                                            <option value="Mario">Mario3</option>
+                                                                                            <option value="Mario">Mario4</option>
+                                                                                            <option value="Mario">Mario5</option>
+                                                                                        </select>
+                                                                                        <br>
+                                                                                        <a href="#" class="btn btn-primary" style="color:white;" onclick="document.getElementById('myformAsignar<?php echo $arraySolicitud['id_soli']?>').submit()">Asignar</a>
+                                                                                    </form>
+                                                                            <?php } ;?>
+                                                                            <br>
                                                                     </article>
                                                                 </div>
                                                             </div>
