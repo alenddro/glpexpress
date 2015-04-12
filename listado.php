@@ -25,9 +25,14 @@ require_once('conexion.php');
         }elseif($_SESSION['esadmin']==2 || $_SESSION['esadmin']==3){
 
             //Todos los pedidos activos
-            $sqlSolicitud="select producto.*, solicitud.* from solicitud, producto where producto.id_prod=solicitud.producto_id_soli and solicitud.estado_solicitud_soli='activo' order by solicitud.fec_solicitud_soli desc";
+            $sqlSolicitud="select producto.*, solicitud.* from solicitud, producto where producto.id_prod=solicitud.producto_id_soli and solicitud.estado_solicitud_soli='activo' and solicitud.asignado_a_soli='' order by solicitud.fec_solicitud_soli desc";
             $ejecSolicitud=mysql_query($sqlSolicitud, $conexion);
-        }    
+        }  
+
+
+        //seleccionar a los trabajadores activos del dia
+        $sqlTrabajadoresActivos="select * from trabajadoractivo where estado_trab_activo='1'";
+        $ejecTrabajadoresActivos=mysql_query($sqlTrabajadoresActivos,$conexion);  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -236,19 +241,21 @@ require_once('conexion.php');
                                                                                     <div class="btn btn-success"><a href="finalizar-pedido.php?l=<?php echo $arraySolicitud['id_soli']?>" style="color:white;">Finalizar Pedido</a></div>
                                                                                     <div class="btn btn-danger"><a href="rechazar-pedido.php?l=<?php echo $arraySolicitud['id_soli']?>" style="color:white;">Rechazar Pedido</a></div>
                                                                             <?php }elseif($_SESSION['esadmin']==3){;?>
-                                                                                    <form action="asignar-pedido.php" id="myformAsignar<?php echo $arraySolicitud['id_soli']?>" method="GET">
+                                                                                    <form action="asignarpedido.php" id="myformAsignar<?php echo $arraySolicitud['id_soli']?>" method="GET">
+                                                                                        <input type="hidden" name="id_soli" value="<?php echo $arraySolicitud['id_soli']?>">
                                                                                         <label>Asignar A</label>
                                                                                         <select name="asignar_a" id="asignar" class="form-control">
-                                                                                            <option value="Mario">Mario</option>
-                                                                                            <option value="Mario">Mario2</option>
-                                                                                            <option value="Mario">Mario3</option>
-                                                                                            <option value="Mario">Mario4</option>
-                                                                                            <option value="Mario">Mario5</option>
+                                                                                            <?php 
+                                                                                                while ($arrayTrabajadoresActivos=mysql_fetch_array($ejecTrabajadoresActivos)){ ;?>
+                                                                                                    <option value="<?php echo $arrayTrabajadoresActivos['id_trab_activo'];?>"><?php echo $arrayTrabajadoresActivos['nombre_trab_activo'];?>&nbsp;<?php echo $arrayTrabajadoresActivos['apellido_trab_activo'];?></option>
+                                                                                            <?php }; ?>
+                                                                                                <?php mysql_data_seek($ejecTrabajadoresActivos, 0);?>
                                                                                         </select>
                                                                                         <br>
                                                                                         <a href="#" class="btn btn-primary" style="color:white;" onclick="document.getElementById('myformAsignar<?php echo $arraySolicitud['id_soli']?>').submit()">Asignar</a>
+                                                                                        <?php print_r($arrayTrabajadoresActivos); ?>
                                                                                     </form>
-                                                                            <?php } ;?>
+                                                                            <?php }; ?>
                                                                             <br>
                                                                     </article>
                                                                 </div>

@@ -10,7 +10,7 @@ require_once('conexion.php');
 	
 	//Consulta total de Trabajadores
 
-	$sqlTotalTrabajadores = "select * from usuario where esadmin = 1";
+	$sqlTotalTrabajadores = "select * from usuario where (esadmin = 1 or esadmin=3)";
 	$ejecTotalTrabajadores = mysql_query($sqlTotalTrabajadores, $conexion);
 	$countTotalTrabajadores = mysql_num_rows($ejecTotalTrabajadores);
 

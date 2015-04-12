@@ -1,16 +1,17 @@
-<?php
-    session_start();
-    require_once('conexion.php');
+<?php 
+session_start();
+require_once('conexion.php');
 
-    $id_soli=$_GET['l'];
-    $comentario=$_GET['comentario_cli'];
-    $tip_comentario=$_GET['tipo_comentario'];
+$asignar_a=$_GET['asignar_a'];
+$id_soli=$_GET['id_soli'];
 
-    $sqlActualizarComentario="update solicitud set comentario_cli_soli='$comentario', tipo_comentario_cli_soli='$tip_comentario' where id_soli='$id_soli'";
-    $ejecActualizarComentario = mysql_query($sqlActualizarComentario, $conexion);
+	//asignar pedido en tabla solicitud (update)
+	$sqlAsignarSolicitud="update solicitud set asignado_a_soli='$asignar_a' where id_soli='$id_soli'";
+	$ejecAsignarSolicitud=mysql_query($sqlAsignarSolicitud,$conexion);
 
-?>
-<!DOCTYPE html>
+if ($ejecAsignarSolicitud) {; ?>
+
+	<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -27,7 +28,7 @@
 
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-              <h4 class="modal-title" id="myLargeModalLabel">Gracias por su preferencia <span class="nombreregistro"></span>Su Comentario ha sido enviado!!</h4>
+              <h4 class="modal-title" id="myLargeModalLabel">Asignacion completada con exito <span class="nombreregistro"></span></h4>
             </div>
             <div class="modal-body">
                 <img src="img/logo.gif" alt="">
@@ -42,3 +43,10 @@
     </script>
     </body>
 </html>
+
+
+<?php
+}else{
+	echo "Error al asignar pedido";
+}
+?>
