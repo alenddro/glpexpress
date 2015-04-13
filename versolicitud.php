@@ -39,7 +39,7 @@ require_once('conexion.php');
             </div>
             <div class="collapse navbar-collapse navbar-right">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">Home</a></li>
+                <li class="active"><a href="index.php">Home</a></li>
               </ul>
             </div><!--/.nav-collapse -->
           </div>

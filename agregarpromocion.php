@@ -26,6 +26,11 @@ session_start();
 						<hr>
 					</div>
 					<div class="form-group">
+						<label for="nombreOferta">Descripción promocion</label>
+						<input type="text" class="form-control" name="descrip_promocion" placeholder="ingrese Descripción de promocion">
+						<hr>
+					</div>
+					<div class="form-group">
 						<label for="nombreImagen">Imagen promocion</label>	
 						<input type="file" class="form-control" name="ruta_img_promocion" placeholder="imagen del promocion">
 						<hr>

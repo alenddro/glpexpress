@@ -2,6 +2,7 @@
 session_start();
 require_once('conexion.php');
 $titulo_oferta=$_POST['titulo_oferta'];
+$descrip_oferta=$_POST['descrip_oferta'];
 $valor_oferta=$_POST['valor_oferta'];
 $stock_oferta=$_POST['stock_oferta'];
 $subida_por= $_SESSION['nombre_usu']." ".$_SESSION['apellido_usu'];
@@ -24,17 +25,15 @@ $carpeta_upload_img = $carpeta_upload_img . $fec_subida . basename( $_FILES['rut
 
 	$ruta= "img/img-ofertas/". $fec_subida . basename( $_FILES['ruta_oferta']['name']);
 
-	$sqlInsertarDatosOferta="insert into oferta(titulo_of,imagen_of,valor_of,stock_of,fec_subida_of,subida_por_of,estado_of) values('$titulo_oferta','$ruta','$valor_oferta','$stock_oferta','$fec_subida','$subida_por','1')";		
+	$sqlInsertarDatosOferta="insert into oferta(titulo_of,descrip_of,imagen_of,valor_of,stock_of,fec_subida_of,subida_por_of,estado_of) values('$titulo_oferta','$descrip_oferta','$ruta','$valor_oferta','$stock_oferta','$fec_subida','$subida_por','1')";		
 	$ejecInsertarDatosOferta=mysql_query($sqlInsertarDatosOferta,$conexion);
 
 	if ($ejecInsertarDatosOferta) {
-		echo "datos insertados correctamente";
-
 		?>
 		<script>
              setTimeout(function () {
                window.location.href = "listaroferta.php";
-            }, 1000);
+            });
         </script>
 		<?php
 

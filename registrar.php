@@ -51,7 +51,7 @@ session_start();
 
             <script>
              setTimeout(function () {
-               window.location.href = "index.html";
+               window.location.href = "index.php";
             }, 3000);
             </script>
 
@@ -149,7 +149,7 @@ session_start();
 
         <script>
          setTimeout(function () {
-           window.location.href = "index.html";
+           window.location.href = "index.php";
         }, 5000);
         </script>
 
