@@ -1,0 +1,25 @@
+Modo pago(listo)
+Cliente -Mejorar, interfaz y decir con que medio de pago(listo)
+Definir perfiles(listo)
+Ofertas(listo)
+Stock critico, agregar productos(listo)
+Sistema de rechazo de pedido, el porque lo rechazo?
+Satisfaccion de cliente(listo)
+graficos
+Estadisticas para usuarios, de cuantos valones han pedido, cuando pidieron el ultimo, rendimiento
+Trabajadores, control del trabajador, tal trabajador esta activo y tal camion esta activo.
+Modulo de Agregar Camiones(lsito)
+modulo de agregar productos(listo)
+modulo de agregar ofertas(listo)
+Venta de camino modulo, el trabjador se encuentra con una persona en el camino y le vende un gas
+cuando se entregue el camion, llevar la cuenta del stock que lleva ese camion, asi se controlaria la venta por el camino
+
+Que la secretaria/trabajador pueda ingresar una solicitud y a la ves agregue al nuevo usuario 
+
+
+causa del porque se "banea a un usario/trabajador"
+
+Modulo proveedor(lo dejaria como solo agregar el stock que ya existe, que el proveedor lo vea el mismo administrador en persona, quizas hacer
+un modulo para que guarde las facturas o boletas(Modulo stock ingresar a la sucursal) que le dan por la compra del gas)
+
+que los clientes mas antiguos tengan mayores veneficios, como llamarlos antes de alguna bajada de precio, etc

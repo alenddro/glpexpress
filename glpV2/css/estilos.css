@@ -1,0 +1,208 @@
+
+/*index*/
+
+/*header{
+    margin-bottom: 69px;
+}*/
+
+.navbar-inverse {
+background-color: #222;
+border-color: #FFF;
+}
+
+#nav-lipigas{
+	background: white; /* Old browsers */
+	box-shadow:         0px 0px 11px 0px rgba(50, 50, 50, 0.67);
+}
+#nav-lipigas .navbar-collapse .navbar-nav .active a{
+	background: #FFCC00; /* Old browsers */
+	border-bottom: 1px solid white;
+
+}
+#nav-lipigas .navbar-collapse .navbar-nav a:hover{
+	color: white; /* Old browsers */
+	background: #FFCC00;
+}
+
+#nav-lipigas .container .navbar-header .navbar-brand{
+
+	color: white; /* Old browsers */
+	background: #FFCC00;
+	border-right: 2px #FFF solid ;
+
+
+}
+
+#entorno_cliente{
+	background: url('../img/fondo_final.jpg') repeat fixed top center;
+    -webkit-box-shadow: 0px 0px 11px 0px rgba(50, 50, 50, 0.67);
+    -moz-box-shadow:    0px 0px 11px 0px rgba(50, 50, 50, 0.67);
+    box-shadow:         0px 0px 11px 0px rgba(50, 50, 50, 0.67);
+}
+#acerca_de{
+	background: transparent;
+    border-bottom: #ececec 1px solid;
+}
+
+.container .fomrulario-lipigas{
+	padding:30px;
+	background-color: #E2DCDC;
+}
+
+
+ /*Registro lipigas */
+#principal-registro{
+   background: url('../img/maxresdefault.jpg') repeat fixed top center; 
+}
+
+#principal-registro .head-registro{
+    background-color: #ffd777;
+}
+
+
+.registro-lipigas{
+    padding:30px;
+    background-color: #ECECEC;
+    background-color: rgba(255,255,255,.8);
+}
+
+.registro-lipigas-listado{
+    padding:30px;
+    background-color: rgba(255,255,255,.8);
+    display: inline-block;
+    width: 100%;
+
+}
+
+
+/*solicita gas*/
+
+#formulario-solicita{
+    background: url('../img/lipigas.jpg') repeat fixed left top; 
+}
+#solicita-gas .head-registro{
+    background-color: rgb(255, 239, 50);
+}
+
+#solicita-gas .nombreusu{
+    text-transform: uppercase;
+}
+
+#formulario-solicita .registro-lipigas .contenedor-gas{
+    border:rgb(255, 239, 50) 10px dotted;
+}
+
+#formulario-solicita #metodopago{
+    background: #fff;
+    border-radius: 5px;
+    color: black;
+
+}
+#formulario-solicita #metodopago .dropdown-metodo-pago{
+    background: #fff;
+    border:0;
+    font-size: 18px;
+    color: black;
+
+}
+/*registro.php*/
+
+#registrarphp{
+
+    background: url('../img/lipigas.jpg') repeat center center;
+}
+
+#registrarphp .nombreregistro{
+    text-transform: uppercase;
+}
+
+
+/*login.php*/
+
+#loginphp{
+    background: url('../img/lipigas.jpg') repeat center center;
+}
+
+
+/*listar.php*/
+
+.registro-lipigas-listado .listado-trabajador{
+    background:#ffd777;
+    opacity: 0.7;
+    font-size: 20px;
+    padding: 10px;
+    color: black;
+    margin-top: 5px;
+}
+
+#tipo_comentario{
+    border-radius: 3px;
+    font-size: 24px;
+}
+/*administrar.php*/
+
+#dashboard{
+    background-color: white;
+    height:auto;
+    margin-top: 2%;
+
+}
+
+.col-dashboard{
+    margin-top:10px;
+    margin-bottom:10px;
+    padding:20px;
+    border-top: 1px black solid;
+
+
+}
+
+.col-dashboard div{
+    float: left;
+    margin-right: 10px;
+}
+.col-dashboard p{
+    clear: both;
+}
+
+/*administrar.php -> header-estadisticas.php*/
+#header-estadisticas article{
+    background-color:rgb(255, 253, 213);
+}
+#header-estadisticas article div p{
+    font-size: 17px;
+    color:rgb(245, 148, 30);
+}
+
+#header-estadisticas article .header-estadisticas{
+    border: rgb(255, 179, 124) 1px solid;
+    height: 100px;
+    padding: 22px;
+}
+
+
+/*agregar_producto.php*/
+
+#producto{
+    padding-left:10%;
+    padding-right:10%;
+}
+
+#producto .form_producto{
+    padding:10px;
+    border-radius: 4px;
+    border:1px #ddd solid;
+}
+
+/*agregar_oferta.php*/
+
+#oferta{
+    padding-left:10%;
+    padding-right:10%;
+}
+
+#oferta .form_oferta{
+    padding:10px;
+    border-radius: 4px;
+    border:1px #ddd solid;
+}
