@@ -1,4 +1,5 @@
-<?php session_start();
+<?php
+session_start();
 header('Content-Type: text/html; charset=ISO-8859-1');
 require_once('../conexion.php');   
 require_once('../isset/header-estadisticas.php');   
@@ -6,6 +7,9 @@ require_once('../isset/header-estadisticas.php');
   if ($conexion) {
       
       $todook="OK!";
+      $nombremaximo="";
+      $fecharegistro="";
+      $maximocuenta="";
 
            // Con esta sentencia SQL insertaremos los datos en la base de datos 
       $resultado = "SHOW TABLE STATUS"; 
@@ -29,8 +33,8 @@ require_once('../isset/header-estadisticas.php');
             $sqlNombreApellidoTrabajador = "select nombre_usu, apellido_usu, registrado_el from usuario where id_usu='$id_trabajador' and esadmin='1' ";
             $ejecNombreApellidoTrabajador = mysql_query($sqlNombreApellidoTrabajador, $conexion);
               while($arrayNombreApellidoTrabajador=mysql_fetch_array($ejecNombreApellidoTrabajador)){
-                     
-                $nombremaximo = $arrayNombreApellidoTrabajador['nombre_usu'] ." ". $arrayNombreApellidoTrabajador['apellido_usu'] ;
+
+                $nombremaximo = $arrayNombreApellidoTrabajador['nombre_usu'] ." ". $arrayNombreApellidoTrabajador['apellido_usu'];
                 $fecharegistro= $arrayNombreApellidoTrabajador['registrado_el'];
               }
 
@@ -143,7 +147,7 @@ require_once('../isset/header-estadisticas.php');
                   		</div>
                   	
                   	</div><!-- /row mt -->	
-      <?};?>
+      <?php };?>
       <?php if ($_SESSION['esadmin']==3) {;?>
                      <section id="main-content">
           <section class="wrapper">
@@ -189,9 +193,7 @@ require_once('../isset/header-estadisticas.php');
                       </div>
                     
                     </div><!-- /row mt -->  
-     <?};?>  
-                  
-                      
+     <?php }; ?>
                       <div class="row mt">
                       <!-- SERVER STATUS PANELS -->
                       	<div class="col-md-4 col-sm-4 mb">
@@ -227,7 +229,7 @@ require_once('../isset/header-estadisticas.php');
 										];
 										var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
 								</script>
-	                      	</div><! --/grey-panel -->
+	                      	</div><!--/grey-panel -->
                       	</div><!-- /col-md-4-->
                       	
 
@@ -247,7 +249,7 @@ require_once('../isset/header-estadisticas.php');
 	                      		</div>
                       		</div>
                       	</div><!-- /col-md-4 -->
-                      	
+
 						<div class="col-md-4 mb">
 							<!-- WHITE PANEL - TOP USER -->
 							<div class="white-panel pn">
@@ -263,16 +265,15 @@ require_once('../isset/header-estadisticas.php');
 									</div>
 									<div class="col-md-6">
 										<p class="small mt">SOLICITUDES FINALIZADAS</p>
-										<p><?php echo $maximocuenta?></p>
+										<p><?php echo $maximocuenta; ?></p>
 									</div>
 								</div>
-							</div>
+							</div><!-- END WHITE PANEL - TOP USER -->
 						</div><!-- /col-md-4 -->
-                      	
+
 
                     </div><!-- /row -->
-                    
-                    				
+
 					<div class="row">
 						<!-- TWITTER PANEL -->
 						<div class="col-md-4 mb">
@@ -606,7 +607,5 @@ require_once('../isset/header-estadisticas.php');
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
     </script>
-  
-
   </body>
 </html>

@@ -67,7 +67,7 @@ require_once('conexion.php');
         </div>
     </header>
 
-     <section class="container">
+    <section class="container">
             <div class="row">
                 <a href="cierra_session.php">Cerrar Sesion</a>
                 <?php if ( $_SESSION['esadmin']==2 || $_SESSION['esadmin']==3){ ?>
@@ -78,7 +78,8 @@ require_once('conexion.php');
                     <a href="solicita.php">Regresar a Solicitudes</a>
                 <?php } ?>
             </div>
-        </section>
+    </section>
+    
     <div class="jumbotron" id="formulario-registro">
         <section id="principal-registro" class="container-fluid">
             <div class="row">

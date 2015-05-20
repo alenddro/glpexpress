@@ -1,5 +1,4 @@
-<?php 
-session_start();
+<?php
 
 //Consulta total de usuarios
 	

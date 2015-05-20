@@ -94,7 +94,7 @@ require_once('../conexion.php');
                                                     <br>
                                                     <label>Imagen:</label>
                                                     <br>
-                                                    <img src="<?php echo "../".$arrayListadoProductos['ruta_img_prod']?>" alt="<?php echo $arrayListadoProductos['marca_cam']?>" width="400">
+                                                    <img src="<?php echo "../".$arrayListadoProductos['ruta_img_prod']?>" alt="<?php echo $arrayListadoProductos['nombre_prod']?>" width="400">
                                                     <br>
                                                     <br>
                                                     <label>Agregado Por</label>

@@ -54,19 +54,20 @@
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-tasks"></i>
-                          <span>Forms</span>
+                          <span>Area Solicitudes</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="form_component.html">Form Components</a></li>
+                          <li><a  href="listadosolicitudes.php">Solicitudes Activas</a></li>
+                          <li><a  href="listadosolicitudesfin.php">Solicitudes Finalizadas</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-th"></i>
-                          <span>Data Tables</span>
+                          <span>Administracion del Sistema</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="basic_table.html">Basic Table</a></li>
+                          <li><a  href="admusuytrab.php">ADM. Usuarios/Trabajadores</a></li>
                           <li><a  href="responsive_table.html">Responsive Table</a></li>
                       </ul>
                   </li>
