@@ -1,3 +1,7 @@
+<?php 
+	require_once("conexion.php");
+	require_once("admin/contadorvisitas.php");
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -151,7 +155,7 @@
 
     	<!-- Modal automatico sin boton-->
 	    <?php 
-	    	require_once("conexion.php");
+	    	
 	    	$sqlOfertas="select * from oferta order by id_of desc limit 1";
 	    	$ejecOfertas=mysql_query($sqlOfertas,$conexion);
 	    	$arrayOfertas=mysql_fetch_array($ejecOfertas);

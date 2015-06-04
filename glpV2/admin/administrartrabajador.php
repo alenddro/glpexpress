@@ -4,11 +4,12 @@ header('Content-Type: text/html; charset=ISO-8859-1');
 require_once('../conexion.php'); 
 	
 	//mostrar todos los usuarios trabajadores (Camioneros)
-	$sqlTrabajadores="select * from usuario where esadmin='1'";
+	$sqlTrabajadores="select * from usuario where not exists(select id_trab_activo from trabajadoractivo where usuario.id_usu=trabajadoractivo.id_trab_activo) and esadmin='1' ";
 	$ejecTrabajadores=mysql_query($sqlTrabajadores,$conexion);
 
+
 	//mostrar los camiones que hay
-	$sqlCamiones = "select * from camion";
+	$sqlCamiones = "select * from camion where not exists(select id_camion_trab_activo from trabajadoractivo where camion.id_cam=trabajadoractivo.id_camion_trab_activo) and estado_cam='1'";
 	$ejecCamiones=mysql_query($sqlCamiones,$conexion);  
 ?>
 <!DOCTYPE html>
@@ -72,13 +73,16 @@ require_once('../conexion.php');
 								<label>Seleccione Trabajador</label>
 								<select name="trabajador" id="trabajador" class="form-control">
 									<?php 
-									while ($arrayTrabajador=mysql_fetch_array($ejecTrabajadores)) {;?>
-										<option value="<?php echo $arrayTrabajador['id_usu']?>"><?php echo $arrayTrabajador['nombre_usu']?>&nbsp;<?php echo $arrayTrabajador['apellido_usu']?></option>	
-									<?php };
-									?>
-								</select>
-								<br>
-								<label>Seleccione Camion</label>
+									while ($arrayTrabajador=mysql_fetch_array($ejecTrabajadores)){
+                    
+                    ?>
+                        <option value="<?php echo $arrayTrabajador['id_usu']?>"><?php echo $arrayTrabajador['nombre_usu']?>&nbsp;<?php echo $arrayTrabajador['apellido_usu']?></option> 
+                  <?php 
+                  }
+                  ?>
+                </select>
+                <br>
+                <label>Seleccione Camion</label>
 								<select name="camion" id="camion" class="form-control">
 									<?php 
 									while ($arrayCamion=mysql_fetch_array($ejecCamiones)) {;?>

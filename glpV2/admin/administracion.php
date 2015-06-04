@@ -277,31 +277,42 @@ require_once('../isset/header-estadisticas.php');
 					<div class="row">
 						<!-- TWITTER PANEL -->
 						<div class="col-md-4 mb">
-                      		<div class="darkblue-panel pn">
-                      			<div class="darkblue-header">
-						  			<h5>DROPBOX STATICS</h5>
-                      			</div>
+            		<div class="darkblue-panel pn">
+            			<div class="darkblue-header">
+	  			            <h5 style="text-transform:uppercase;">TOTAL DE VISITAS MES : <?php echo date("M"); ?></h5>
+                      <div>De 10.000 visitas usted tiene:</div>
+                      <?php 
+                          $mesActual = date('m');
+                          $sqlSum = "select SUM(times) as totalvisitas from todas where EXTRACT(month FROM fec_vista)=$mesActual";
+                          $ejecSqlSum= mysql_query($sqlSum, $conexion);
+                          $arraysqlSum =mysql_fetch_array($ejecSqlSum, MYSQL_ASSOC);
+
+                          $porcentajetotalmes = ($arraysqlSum["totalvisitas"] * 100) / 10000;
+
+                          $porcentajesobrantemes =  100-$porcentajetotalmes;
+                      ?>
+            			</div>
 								<canvas id="serverstatus02" height="120" width="120"></canvas>
 								<script>
 									var doughnutData = [
 											{
-												value: 60,
+												value: <?php echo $porcentajetotalmes; ?>,
 												color:"#68dff0"
 											},
 											{
-												value : 40,
+												value : <?php echo $porcentajesobrantemes; ?>,
 												color : "#444c57"
 											}
 										];
 										var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
 								</script>
-								<p>April 17, 2014</p>
+								<div><?php echo date("d-m-Y"); ?></div>
 								<footer>
 									<div class="pull-left">
-										<h5><i class="fa fa-hdd-o"></i> 17 GB</h5>
+										<h5><i class="fa fa-hdd-o"></i> <?php echo $arraysqlSum["totalvisitas"]; ?> Visitas</h5>
 									</div>
 									<div class="pull-right">
-										<h5>60% Used</h5>
+										<h5><?php echo $porcentajetotalmes; ?>%</h5>
 									</div>
 								</footer>
                       		</div><!-- /darkblue panel -->
@@ -337,12 +348,12 @@ require_once('../isset/header-estadisticas.php');
 					<div class="row mt">
                       <!--CUSTOM CHART START -->
 
-                      <?php require_once("contadorvisitas.php");?>
+                      
                       <?php
                         //Contador
                         //========================================================================
                         $mesActual = date('m');
-                        $sql = "select * from todas where EXTRACT(month FROM fec_vista)=$mesActual";
+                        $sql = "select * from todas where EXTRACT(month FROM fec_vista)=$mesActual order by fec_vista desc limit 8";
                         $ejecSql= mysql_query($sql, $conexion);
 
 
@@ -358,7 +369,7 @@ require_once('../isset/header-estadisticas.php');
 
                       ?>
                       <div class="border-head">
-                          <h3>VISITS</h3>
+                          <h3>VISITAS DIARIAS</h3>
                       </div>
                       <div class="custom-bar-chart">
                           <ul class="y-axis">

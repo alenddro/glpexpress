@@ -30,7 +30,7 @@ $fec_subida= date("Y-m-d h-i-s", time());
 		?>
 		<script>
              setTimeout(function () {
-               window.location.href = "listaradministrartrabajador.php";
+               window.location.href = "admin/listartrabajadores.php";
             }, 300);
         </script>
 		<?php

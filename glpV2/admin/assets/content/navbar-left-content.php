@@ -20,10 +20,11 @@
                           <span>Area Trabajadores</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="administrartrabajador.php">Habilitar Trabajador</a></li>
-                          <li><a  href="listartrabajadores.php">Listar Trabajadores</a></li>
-                          <li><a  href="estadisticas.php">Estadisticas Trabajadores</a></li>  
                           <li><a  href="registrartrabajador.php">Nuevo Trabajador</a></li>  
+                          <li><a  href="listartrabajadores.php">Listar Trabajadores</a></li>
+                          <li><a  href="administrartrabajador.php">Habilitar Trabajador</a></li>
+                          <li><a  href="listartrabajadoresactivos.php">Listar Trabajadores Activos</a></li>
+                          <li><a  href="estadisticas.php">Estadisticas Trabajadores</a></li>  
                       </ul>
                   </li>
 
@@ -68,6 +69,7 @@
                       </a>
                       <ul class="sub">
                           <li><a  href="admusuytrab.php">ADM. Usuarios/Trabajadores</a></li>
+                          <li><a  href="reportes.php">Reportes del Sistema</a></li>
                           <li><a  href="responsive_table.html">Responsive Table</a></li>
                       </ul>
                   </li>
