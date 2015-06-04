@@ -1,6 +1,10 @@
 crear campo en la tabla de usuario para que se puedan loguear con rut o correo electronico
-las solicitudes le llegue a la secretaria y la secretaria deribe quien esta activo para darsela(listo)
-crear tabla de trabajadores que estaran tranbajando en el dia: 
+las solicitudes le 
+llegue a la secretaria y la secretaria deribe quien esta activo para darsela(listo)
+crear tabla de 
+trabajadores que estaran 
+tranbajando en el dia: 
+
 CAMPOS DE LA TABLA:
 -id_tra_act
 -nombre_tra_act
@@ -18,3 +22,17 @@ Modulo stock el cual podra despachar e ingresar, ingresar stock al local y despa
 
 
 Agregar nuestro propio Numero(Folio-id) a las recepciones y un numero de guia
+
+
+-Visitas diarias, mensuales, anuales
+-Enviar correos
+-Reportes
+-Graficos
+-Mostrar las ventas(solicitudes finalizadas por cada trabajador) diaria, mensual, anual.
+
+
+
+
+1 Diapositiva de cliente
+2 mostrar sistema prototipo
+3 Requirimientos

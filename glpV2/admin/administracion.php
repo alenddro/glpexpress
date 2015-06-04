@@ -336,6 +336,27 @@ require_once('../isset/header-estadisticas.php');
 					
 					<div class="row mt">
                       <!--CUSTOM CHART START -->
+
+                      <?php require_once("contadorvisitas.php");?>
+                      <?php
+                        //Contador
+                        //========================================================================
+                        $mesActual = date('m');
+                        $sql = "select * from todas where EXTRACT(month FROM fec_vista)=$mesActual";
+                        $ejecSql= mysql_query($sql, $conexion);
+
+
+                        //echo "<br>";
+                        //echo "Desglose del mes actual";
+                        //while ($arraySql=mysql_fetch_array($ejecSql)) {
+                          //  $fecha=$arraySql['times'];
+                            //echo "<br>";
+                            //echo $fecha;
+                        //}
+                        //========================================================================
+
+
+                      ?>
                       <div class="border-head">
                           <h3>VISITS</h3>
                       </div>
@@ -348,11 +369,16 @@ require_once('../isset/header-estadisticas.php');
                               <li><span>2.000</span></li>
                               <li><span>0</span></li>
                           </ul>
+                          <?php while ($arraySql=mysql_fetch_array($ejecSql)) {; ?>
                           <div class="bar">
-                              <div class="title">JAN</div>
-                              <div class="value tooltips" data-original-title="8.500" data-toggle="tooltip" data-placement="top">85%</div>
+                              <div class="title"><?php echo $arraySql['fec_vista']; ?></div>
+                              <?php
+                                $porcentaje= ($arraySql['times'] * 100) / 10000;
+                              ?>
+                              <div class="value tooltips" data-original-title="<?php echo $arraySql['times']; ?>" data-toggle="tooltip" data-placement="top"><?php echo $porcentaje; ?>%</div>
                           </div>
-                          <div class="bar ">
+                          <?php }; ?>
+                          <!-- <div class="bar ">
                               <div class="title">FEB</div>
                               <div class="value tooltips" data-original-title="5.000" data-toggle="tooltip" data-placement="top">50%</div>
                           </div>
@@ -361,7 +387,7 @@ require_once('../isset/header-estadisticas.php');
                               <div class="value tooltips" data-original-title="6.000" data-toggle="tooltip" data-placement="top">60%</div>
                           </div>
                           <div class="bar ">
-                              <div class="title">APR</div>
+                              <div class="title">ABR</div>
                               <div class="value tooltips" data-original-title="4.500" data-toggle="tooltip" data-placement="top">45%</div>
                           </div>
                           <div class="bar">
@@ -375,7 +401,7 @@ require_once('../isset/header-estadisticas.php');
                           <div class="bar">
                               <div class="title">JUL</div>
                               <div class="value tooltips" data-original-title="7.500" data-toggle="tooltip" data-placement="top">75%</div>
-                          </div>
+                          </div> -->
                       </div>
                       <!--custom chart end-->
 					</div><!-- /row -->	
