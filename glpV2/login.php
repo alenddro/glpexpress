@@ -32,7 +32,7 @@ header('Content-Type: text/html; charset=ISO-8859-1');
 
 
 
-    $sqlLogin = "select * from usuario where email_usu='$usu' and password_usu='$pass'";
+    $sqlLogin = "select * from usuario where email_usu='$usu' and password_usu='$pass' and EstadoKEY='1'";
     $ejecLogin = mysql_query($sqlLogin, $conexion) or die ("Fallo en la consulta login");
     $arrayLogin= mysql_fetch_array($ejecLogin);
 
@@ -91,7 +91,7 @@ header('Content-Type: text/html; charset=ISO-8859-1');
 
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                      <h4 class="modal-title" id="myLargeModalLabel">Error al iniciar sesion, intentelo otra vez!</h4>
+                      <h4 class="modal-title" id="myLargeModalLabel">Error al iniciar sesion, Puede que su cuenta no este activada, intentelo otra vez!</h4>
                     </div>
                     <div class="modal-body">
                         <img src="img/logo.gif" alt="">

@@ -3,8 +3,8 @@ s
 header('Content-Type: text/html; charset=ISO-8859-1');
 session_start();
 require_once('conexion.php');
-    $usuariousu = $_SESSION['nombreusu_usu'];
-    $sqlDatosUsuario="select * from usuario where nombreusu_usu='$usuariousu' ";
+    $usuariousu = $_SESSION['id_usu'];
+    $sqlDatosUsuario="select * from usuario where id_usu='$usuariousu' ";
     $ejecDatosUsuario=mysql_query($sqlDatosUsuario);
     $arrayDatosUsuario=mysql_fetch_array($ejecDatosUsuario);
 ?>
