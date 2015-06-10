@@ -17,7 +17,7 @@ require_once('../conexion.php');
 
         if ($_SESSION['esadmin']==2) {
            
-             //listado trabajaores
+             //listado trabajadores activos
             $sqlListadoTrabajadores="select * from usuario,trabajadoractivo where usuario.esadmin='1' and usuario.id_usu=trabajadoractivo.id_trab_activo order by usuario.id_usu desc";
             $ejecListadoTrabajadores=mysql_query($sqlListadoTrabajadores, $conexion);
             
@@ -33,7 +33,7 @@ require_once('../conexion.php');
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>Listado de Trabajadores</title>
+    <title>Listado de Trabajadores Activos</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -75,7 +75,7 @@ require_once('../conexion.php');
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper site-min-height">
-          	<h3><i class="fa fa-angle-right"></i> Listado de Trabajadores</h3>
+          	<h3><i class="fa fa-angle-right"></i> Listado de Trabajadores Activos</h3>
           	<div class="row mt">
           		<div class="col-lg-12">
           		 <div class="jumbotron" id="formulario-registro">

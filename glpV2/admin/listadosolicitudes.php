@@ -151,7 +151,7 @@ if($_SESSION['esadmin']==2 || $_SESSION['esadmin']==3){
                                                                                             <input  value="<?php echo $arraySolicitudDatos['metodo_pago_cli_soli']?>" type="text" name="text" disabled class="form-control" required="" autofocus="">
                                                                                             <br>
                                                                                             <?php if($_SESSION['esadmin']==2 || $_SESSION['esadmin']==3){;?>
-                                                                                                    <form action="asignarpedido.php" id="myformAsignar<?php echo $arraySolicitud['id_soli']?>" method="GET">
+                                                                                                    <form action="../asignarpedido.php" id="myformAsignar<?php echo $arraySolicitud['id_soli']?>" method="GET">
                                                                                                         <input type="hidden" name="id_soli" value="<?php echo $arraySolicitud['id_soli']?>">
                                                                                                         <label>Asignar A</label>
                                                                                                         <select name="asignar_a" id="asignar" class="form-control">

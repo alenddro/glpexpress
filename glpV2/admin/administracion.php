@@ -5,13 +5,14 @@ require_once('../conexion.php');
 require_once('../isset/header-estadisticas.php');   
 
   if ($conexion) {
-      
+
+      $fechahorahoy= date("Y-m-d");
       $todook="OK!";
       $nombremaximo="";
       $fecharegistro="";
       $maximocuenta="";
 
-           // Con esta sentencia SQL insertaremos los datos en la base de datos 
+           // Con esta sentencia SQL mostraremos el peso de cada tabla los datos en la base de datos 
       $resultado = "SHOW TABLE STATUS"; 
       $ejecresultado=mysql_query($resultado, $conexion);
 
@@ -42,6 +43,15 @@ require_once('../isset/header-estadisticas.php');
         }
 
 
+      //Seleccionamos las solicitudes activas que sean de la fecha de hoy que tengan un motivo de rechazo
+      $sqlSolicitudesActivasRechazo="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m-%d')='$fechahorahoy' and motivo_rech_soli!='' and estado_solicitud_soli='activo' order by id_soli desc limit 5";
+      $ejecSolicitudesActivasRechazo=mysql_query($sqlSolicitudesActivasRechazo,$conexion);
+
+      //listado trabajadores activos
+      $sqlListadoTrabajadores="select * from usuario,trabajadoractivo where usuario.esadmin='1' and usuario.id_usu=trabajadoractivo.id_trab_activo order by usuario.id_usu desc";
+      $ejecListadoTrabajadores=mysql_query($sqlListadoTrabajadores, $conexion);
+      
+  
   }else{
       $todook="Algo Anda Mal!";
   }
@@ -426,135 +436,58 @@ require_once('../isset/header-estadisticas.php');
                   
                   <div class="col-lg-3 ds">
                     <!--COMPLETED ACTIONS DONUTS CHART-->
-						<h3>NOTIFICATIONS</h3>
-                                        
-                      <!-- First Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>2 Minutes Ago</muted><br/>
-                      		   <a href="#">James Brown</a> subscribed to your newsletter.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Second Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>3 Hours Ago</muted><br/>
-                      		   <a href="#">Diana Kennedy</a> purchased a year subscription.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Third Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>7 Hours Ago</muted><br/>
-                      		   <a href="#">Brandon Page</a> purchased a year subscription.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fourth Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>11 Hours Ago</muted><br/>
-                      		   <a href="#">Mark Twain</a> commented your post.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fifth Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>18 Hours Ago</muted><br/>
-                      		   <a href="#">Daniel Pratt</a> purchased a wallet in your store.<br/>
-                      		</p>
-                      	</div>
-                      </div>
+						<h3>NOTIFICACIONES</h3>
+                      <?php while ($arraySolicitudesActivasRechazo=mysql_fetch_array($ejecSolicitudesActivasRechazo)) {; ?>                      
+                          <!-- First Action -->
+                          <?php 
+                            $id_nombre_usuario = $arraySolicitudesActivasRechazo['asignado_a_soli'];
+                            $seleccionarnombresolicitud="select * from usuario where id_usu='$id_nombre_usuario'";
+                            $ejecseleccionarnombresolicitud=mysql_query($seleccionarnombresolicitud,$conexion);
+                            $arrayseleccionarnombresolicitud=mysql_fetch_array($ejecseleccionarnombresolicitud);
 
-                       <!-- USERS ONLINE SECTION -->
-						<h3>TEAM MEMBERS</h3>
+                          ?>
+                          <div class="desc">
+                          	<div class="thumb">
+                          		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+                          	</div>
+                          	<div class="details">
+                              <h6>Rechaso Solicitud N: <?php echo $arraySolicitudesActivasRechazo['id_soli']; ?></h6>
+                          		<p><muted>Hora solicitud: <?php echo $arraySolicitudesActivasRechazo['fec_solicitud_soli']; ?></muted><br/>
+                          		   <a href="javascript:;"style="text-transform:uppercase;"><?php echo $arrayseleccionarnombresolicitud['nombre_usu']." ". $arrayseleccionarnombresolicitud['apellido_usu']; ?></a><br/> Motivo: <?php echo $arraySolicitudesActivasRechazo['motivo_rech_soli']; ?><br/>
+                          		</p>
+                          	</div>
+                          </div>
+                      <?php };  ?> 
+
+                       
+						<h3>TRABAJADORES ACTIVOS</h3>
                       <!-- First Member -->
+                      <?php while($arrayListadoTrabajadores=mysql_fetch_array($ejecListadoTrabajadores)){; ?>
                       <div class="desc">
                       	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-divya.jpg" width="35px" height="35px" align="">
+                      		<img class="img-circle" src="assets/img/Avatar-trab.png" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
-                      		<p><a href="#">DIVYA MANIAN</a><br/>
-                      		   <muted>Available</muted>
+                      		<p><a href="javascript:;"style="text-transform:uppercase;"><?php echo $arrayListadoTrabajadores['nombre_usu']." ". $arrayListadoTrabajadores['apellido_usu']; ?></a><br/>
+                      		   <muted>ACTIVO</muted>
                       		</p>
                       	</div>
                       </div>
-                      <!-- Second Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-sherman.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">DJ SHERMAN</a><br/>
-                      		   <muted>I am Busy</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Third Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-danro.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">DAN ROGERS</a><br/>
-                      		   <muted>Available</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fourth Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-zac.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">Zac Sniders</a><br/>
-                      		   <muted>Available</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fifth Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-sam.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">Marcel Newman</a><br/>
-                      		   <muted>Available</muted>
-                      		</p>
-                      	</div>
-                      </div>
+                      <?php }; ?> 
 
-                        <!-- CALENDAR-->
-                        <div id="calendar" class="mb">
-                            <div class="panel green-panel no-margin">
-                                <div class="panel-body">
-                                    <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
-                                        <div class="arrow"></div>
-                                        <h3 class="popover-title" style="disadding: none;"></h3>
-                                        <div id="date-popover-content" class="popover-content"></div>
-                                    </div>
-                                    <div id="my-calendar"></div>
-                                </div>
-                            </div>
-                        </div><!-- / calendar -->
+                      <!-- CALENDAR-->
+                      <div id="calendar" class="mb">
+                          <div class="panel green-panel no-margin">
+                              <div class="panel-body">
+                                  <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
+                                      <div class="arrow"></div>
+                                      <h3 class="popover-title" style="disadding: none;"></h3>
+                                      <div id="date-popover-content" class="popover-content"></div>
+                                  </div>
+                                  <div id="my-calendar"></div>
+                              </div>
+                          </div>
+                      </div><!-- / calendar -->
                       
                   </div><!-- /col-lg-3 -->
               </div><! --/row -->

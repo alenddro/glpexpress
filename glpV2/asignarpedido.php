@@ -38,7 +38,7 @@ if ($ejecAsignarSolicitud) {; ?>
     </div>
     <script>
      setTimeout(function () {
-       window.location.href = "listado.php";
+       window.location.href = "admin/listadosolicitudes.php";
     }, 3000);
     </script>
     </body>

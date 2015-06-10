@@ -240,7 +240,24 @@ require_once('conexion.php');
                                                                             <br>
                                                                             <?php if ($_SESSION['esadmin']==1){ ?>
                                                                                     <div class="btn btn-success"><a href="finalizar-pedido.php?l=<?php echo $arraySolicitud['id_soli']?>" style="color:white;">Finalizar Pedido</a></div>
-                                                                                    <div class="btn btn-danger"><a href="rechazar-pedido.php?l=<?php echo $arraySolicitud['id_soli']?>" style="color:white;">Rechazar Pedido</a></div>
+                                                                                    <div class="btn btn-danger"><a href="#versolicitud-usuario<?php echo $arraySolicitud['id_soli']?>" data-toggle="collapse" style="color:white;">Rechazar Pedido</a></div>
+                                                                                    
+                                                                                    <div class="col-xs-12"  style="opacity:0.5; font-size:20px; padding:10px;color:black;margin-top:5px;line-height: 45px;">  
+                                                                                        <div class="col-xs-8"></div>
+                                                                                        <div class="datossoliusuario collapse col-xs-12" id="versolicitud-usuario<?php echo $arraySolicitud['id_soli'];?>">
+                                                                                            <form action="rechazar-pedido.php" id="myform<?php echo $arraySolicitud['id_soli']?>" method="GET">
+                                                                                                <input type="hidden" name="l" value="<?php echo $arraySolicitud['id_soli']?>">
+                                                                                                <h2>MOTIVO RECHAZO</h2>
+                                                                                                <textarea name="motivorechazo" maxlength="800" class="form-control" rows="8" autofocus>
+                                                                                                </textarea>
+                                                                                                <br>
+                                                                                                <a href="#" class="btn btn-primary" style="color:white;" onclick="document.getElementById('myform<?php echo $arraySolicitud['id_soli']?>').submit()">Enviar</a>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    </div>
+
+
+
                                                                             <?php }elseif($_SESSION['esadmin']==3){;?>
                                                                                     <form action="asignarpedido.php" id="myformAsignar<?php echo $arraySolicitud['id_soli']?>" method="GET">
                                                                                         <input type="hidden" name="id_soli" value="<?php echo $arraySolicitud['id_soli']?>">

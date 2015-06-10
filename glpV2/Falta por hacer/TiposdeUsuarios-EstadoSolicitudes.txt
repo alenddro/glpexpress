@@ -1,18 +1,30 @@
 Tipo de usuarios:
 
  //Estados del Usuario / Trabajdor (esadmin)
-        /*
-        0.-Usuario/cliente
-        1.-Trabajador
-        2.-Admin
-        3.-Secretaria
-        4.-Usuario/cliente dado de baja
-        5.-Trabajador dado de baja
-        */
+  
+      /*
+        
+0.-Usuario/cliente
+        
+1.-Trabajador
+        
+2.-Admin
+        
+3.-Secretaria
+        
+4.-Usuario/cliente dado de baja
+        
+5.-Trabajador dado de baja
+        
+
+*/
 
 Estado Solicitud:
 
+
 1.-activo //cuando la solicitud este activa       
+
 2.-finalizado //cuando la solicitud este finalziada
+
 3.-oculto //cuando el usuario/cliente borre la solicitud de su lista
 4.-rechazado //cuando el trabajador rechaze la solicitud por algun motivo

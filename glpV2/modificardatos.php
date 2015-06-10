@@ -1,4 +1,3 @@
-s
 <?php
 header('Content-Type: text/html; charset=ISO-8859-1');
 session_start();
@@ -72,7 +71,7 @@ require_once('conexion.php');
                                                 <input type="hidden" name="id" value="<?php echo $arrayDatosUsuario['id_usu']?>">
                                                 <input type="hidden" name="modifica" value="1">
                                                 <label>E-mail</label>
-                                                <input  value="<?php echo $arrayDatosUsuario['email_usu']?>" type="email" name="email" class="form-control" required="" autofocus="">
+                                                <input  value="<?php echo $arrayDatosUsuario['email_usu']?>" type="email" name="email" class="form-control" required="" disabled>
                                                 <br>
                                                 <label>Password</label>
                                                 <input  value="<?php echo $arrayDatosUsuario['password_usu']?>" type="password" name="password" class="form-control" required="">
