@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 header('Content-Type: text/html; charset=ISO-8859-1');
 require_once('../conexion.php');   
@@ -285,7 +285,7 @@ require_once('../isset/header-estadisticas.php');
                     </div><!-- /row -->
 
 					<div class="row">
-						<!-- TWITTER PANEL -->
+						<!-- TOTAL DE VISITAS -->
 						<div class="col-md-4 mb">
             		<div class="darkblue-panel pn">
             			<div class="darkblue-header">
@@ -330,18 +330,21 @@ require_once('../isset/header-estadisticas.php');
 						
 						
 						<div class="col-md-4 mb">
-							<!-- INSTAGRAM PANEL -->
+							<!-- STOCK -->
 							<div class="instagram-panel pn">
-								<i class="fa fa-instagram fa-4x"></i>
-								<p>@THISISYOU<br/>
-									5 min. ago
+                <br>
+                <br>
+								<img src="assets/img/gas-icon.png"  alt="gas-icon">
+								<p>TOTAL<br/>
+									77 CILINDROS
 								</p>
-								<p><i class="fa fa-comment"></i> 18 | <i class="fa fa-heart"></i> 49</p>
+                <br>
+								<p><img src="assets/img/gas-icon.png" width="15" alt="gas-icon"> 5kg: 18 | <img src="assets/img/gas-icon.png" width="15" alt="gas-icon"> 15kg: 49 | <img src="assets/img/gas-icon.png" width="15" alt="gas-icon"> 45kg: 10 </p>
 							</div>
 						</div><!-- /col-md-4 -->
 						
 						<div class="col-md-4 col-sm-4 mb">
-							<!-- REVENUE PANEL -->
+							<!-- ESTADISTICAS -->
 							<div class="darkblue-panel pn">
 								<div class="darkblue-header">
 									<h5>REVENUE</h5>
@@ -363,7 +366,7 @@ require_once('../isset/header-estadisticas.php');
                         //Contador
                         //========================================================================
                         $mesActual = date('m');
-                        $sql = "select * from todas where EXTRACT(month FROM fec_vista)=$mesActual order by fec_vista desc limit 8";
+                        $sql = "select * from todas where EXTRACT(month FROM fec_vista)=$mesActual order by fec_vista desc limit 7";
                         $ejecSql= mysql_query($sql, $conexion);
 
 

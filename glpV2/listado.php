@@ -1,12 +1,12 @@
-<?php session_start();
+<?php 
 header('Content-Type: text/html; charset=ISO-8859-1');
+session_start();
 require_once('conexion.php');
-
 
         if ($_SESSION['esadmin']==0 || $_SESSION['esadmin']==1) {
 
              //id usuario logueado
-            $sqlIDusuarioLogueado="select * from usuario where nombreusu_usu='$_SESSION[nombreusu_usu]'";
+            $sqlIDusuarioLogueado="select * from usuario where id_usu='$_SESSION[id_usu]'";
             $ejecIDusuarioLogueado=mysql_query($sqlIDusuarioLogueado, $conexion);
             $arrayIDusuarioLogueado=mysql_fetch_array($ejecIDusuarioLogueado);
 
@@ -17,20 +17,20 @@ require_once('conexion.php');
                 $sqlSolicitud="select producto.*, solicitud.* from solicitud, producto where solicitud.cliente_id_soli='$cliid' and producto.id_prod=solicitud.producto_id_soli and (solicitud.estado_solicitud_soli='finalizado' or solicitud.estado_solicitud_soli='activo') order by solicitud.fec_solicitud_soli desc";
                 $ejecSolicitud=mysql_query($sqlSolicitud, $conexion);
             }elseif($_SESSION['esadmin']==1){
-              //Todos los pedidos activos del trabajador
+              //Todos los pedidos activos del trabajador /trabajador
                 $sqlSolicitud="select producto.*, solicitud.* from solicitud, producto where producto.id_prod=solicitud.producto_id_soli and solicitud.estado_solicitud_soli='activo' and solicitud.asignado_a_soli='$cliid' order by solicitud.fec_solicitud_soli desc";
                 $ejecSolicitud=mysql_query($sqlSolicitud, $conexion);
             }
 
         }elseif($_SESSION['esadmin']==2 || $_SESSION['esadmin']==3){
 
-            //Todos los pedidos activos
+            //Todos los pedidos activos /administrador secretaria 
             $sqlSolicitud="select producto.*, solicitud.* from solicitud, producto where producto.id_prod=solicitud.producto_id_soli and solicitud.estado_solicitud_soli='activo' and solicitud.asignado_a_soli='' order by solicitud.fec_solicitud_soli desc";
             $ejecSolicitud=mysql_query($sqlSolicitud, $conexion);
         }  
 
 
-        //seleccionar a los trabajadores activos del dia
+        //seleccionar a los trabajadores activos del dia /Administrador
         $sqlTrabajadoresActivos="select * from trabajadoractivo where estado_trab_activo='1'";
         $ejecTrabajadoresActivos=mysql_query($sqlTrabajadoresActivos,$conexion);  
 ?>
