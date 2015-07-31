@@ -1,7 +1,12 @@
 <?php 
 session_start();
 header('Content-Type: text/html; charset=ISO-8859-1');
-require_once('../conexion.php');   
+require_once('../conexion.php');
+require_once('../admin/assets/function/arreglarhorafecha.php'); 
+
+
+			$sqlHistorialTrabajadores="SELECT * FROM registro_trab_activos, usuario WHERE usuario.id_usu=registro_trab_activos.id_trab_activo_reg_activo ORDER BY fec_asignacion_trab_activo_reg_activo desc" ;
+			$ejecHistorialTrabajadores=mysql_query($sqlHistorialTrabajadores);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +17,7 @@ require_once('../conexion.php');
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>Agregar Producto</title>
+    <title>Historial Trabajadores</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -52,63 +57,49 @@ require_once('../conexion.php');
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
       <!--main content start-->
-      <section id="main-content">
-          <section class="wrapper site-min-height">
-          	<h3><i class="fa fa-angle-right"></i> Agregar Producto</h3>
-          	<div class="row mt">
-          		<div class="col-lg-12">
-          			<section id="producto">
-						<article>
-							<form action="../agregarproducto2.php" enctype="multipart/form-data" method="POST" role="form" class="form_producto">
-								<div class="agregar-producto">
-                                    <div class="form-group">
-                                        <label for="tipoProducto">Tipo Producto</label>
-    									<select name="tipo_prod" class="form-control">
-                                            <option value="cilindro">Cilindro</option>
-                                            <option value="producto">Producto</option>
-                                            <option value="otro">Otro</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nombreProducto">Nombre Producto</label>
-                                        <input type="text" class="form-control" name="nombre_prod" placeholder="ingrese nombre del producto">
-                                        <hr>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nombreProducto">Kilos</label>
-                                        <input type="text" class="form-control" name="kilos_prod" placeholder="ingrese kilos del producto">
-                                        <hr>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nombreProducto">Descripcion del Producto</label>
-                                        <input type="text" class="form-control" name="descrip_prod" placeholder="ingrese descripcion del producto">
-                                        <hr>
-                                    </div>
-									<div class="form-group">
-										<label for="nombreImagen">Imagen</label>	
-										<input type="file" class="form-control" name="ruta_prod" placeholder="imagen del producto">
-										<hr>
-									</div>	
-									<div class="form-group">
-										<label for="valorProducto">Valor Producto</label>	
-										<input type="text" class="form-control" name="valor_prod" rows="10" placeholder="Ingrese Valor producto ($)"></input>
-										<hr>
-									</div>	
-									<div class="form-group">
-										<label for="stockProducto">Stock Producto</label>	
-										<input type="text" class="form-control" name="stock_prod" rows="10" placeholder="Ingrese Cantidad producto"></input>
-										<hr>
-									</div>
-									<button type="submit" class="btn btn-primary">Guardar</button>
-								</div>
-							</form>
-						</article>
-					</section>
-          		</div>
-          	</div>
-			
-		</section><! --/wrapper -->
-      </section><!-- /MAIN CONTENT -->
+	      <section id="main-content">
+	          <section class="wrapper site-min-height">
+	            <h3><i class="fa fa-angle-right"></i> Historial Trabajadores</h3>
+	            <div class="row mt">
+	                <div class="col-lg-12">
+	                    <div class="row mt">
+	                      <div class="col-md-12">
+	                          <div class="content-panel">
+	                              <table class="table table-striped table-advance table-hover ">
+	                                  <hr>
+	                                  <thead>
+	                                  <tr>
+	                                      <th><i class="fa fa-bullhorn"></i> Nombre</th>
+	                                      <th><i class="fa"></i> Hora Inicio Turno</th>
+                                        <th><i class="fa"><b></b></i> Hora Fin Turno</th>
+                                        <th><i class="fa"><b></b></i> Stock Inicial Desglose</th>
+                                        <th><i class="fa"><b></b></i> Stock Inicial</th>
+                                        <th><i class="fa"><b></b></i> Stock Final Desglose</th>
+	                                      <th><i class="fa"><b></b></i> Stock Final</th>
+	                                  </tr>
+	                                  </thead>
+	                                  <tbody>
+	                                    <?php while ($arrayListarTrabajadoresSistema=mysql_fetch_array($ejecHistorialTrabajadores)){; ?>
+	                                  <tr>
+	                                      <td><a href="javascript:;"><?php echo $arrayListarTrabajadoresSistema['nombre_usu'] ." ". $arrayListarTrabajadoresSistema['apellido_usu']; ?></a></td>
+	                                      <td><?php separarHoraFechaOrdenar($arrayListarTrabajadoresSistema['fec_asignacion_trab_activo_reg_activo']);?></td>
+                                        <td><?php separarHoraFechaOrdenar($arrayListarTrabajadoresSistema['fec_asignacion_fin_trab_activo_reg_activo']);?></td>
+                                        <td><?php echo $arrayListarTrabajadoresSistema['stock_gas_original_trab_activo_reg_activo'];?></td>
+                                        <td><?php echo $arrayListarTrabajadoresSistema['stock_camion_trab_activo_reg_activo'];?></td>
+                                        <td><?php echo $arrayListarTrabajadoresSistema['stock_original_final_camion_trab_activo_reg_activo'];?></td>
+	                                      <td><?php echo $arrayListarTrabajadoresSistema['stock_final_camion_trab_activo_reg_activo'];?></td>
+	                                  </tr>
+	                                  <?php }; ?>
+	                                  </tbody>
+	                              </table>
+	                          </div><!-- /content-panel -->
+	                      </div><!-- /col-md-12 -->
+	                  </div><!-- /row -->
+	                </div>
+	            </div>
+
+	        </section><!--/wrapper -->
+	      </section><!-- /MAIN CONTENT -->
 
       <!--main content end-->
       <!--footer start-->

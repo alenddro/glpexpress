@@ -1,10 +1,12 @@
 <?php 
 session_start();
 require_once('conexion.php');
+$tipo_prod=$_POST['tipo_prod'];
 $nombre_prod=$_POST['nombre_prod'];
 $valor_prod=$_POST['valor_prod'];
 $stock_prod=$_POST['stock_prod'];
 $descrip_prod=$_POST['descrip_prod'];
+$kilos_prod=$_POST['kilos_prod'];
 $subida_por= $_SESSION['nombre_usu']." ".$_SESSION['apellido_usu'];
 
 $fec_subida= date("Y-m-d h-i-s", time());
@@ -20,7 +22,7 @@ $carpeta_upload_img = $carpeta_upload_img . $fec_subida . basename( $_FILES['rut
 
 	$ruta= "img/img-productos/". $fec_subida . basename( $_FILES['ruta_prod']['name']);
 
-	$sqlInsertarDatosProducto="insert into producto(nombre_prod,descrip_prod,ruta_img_prod,valor_prod,stock_prod,fec_subida_prod,agregado_por_prod,estado_prod) values('$nombre_prod','$descrip_prod','$ruta','$valor_prod','$stock_prod','$fec_subida','$subida_por','1')";		
+	$sqlInsertarDatosProducto="insert into producto(tipo_producto_prod,nombre_prod,descrip_prod,ruta_img_prod,valor_prod,stock_prod,fec_subida_prod,agregado_por_prod,estado_prod,kilos_prod) values('$tipo_prod','$nombre_prod','$descrip_prod','$ruta','$valor_prod','$stock_prod','$fec_subida','$subida_por','1','$kilos_prod')";		
 	$ejecInsertarDatosProducto=mysql_query($sqlInsertarDatosProducto,$conexion);
 
 	if ($ejecInsertarDatosProducto) {

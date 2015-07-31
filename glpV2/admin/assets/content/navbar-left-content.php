@@ -70,6 +70,7 @@
                       <ul class="sub">
                           <li><a  href="admusuytrab.php">ADM. Usuarios/Trabajadores</a></li>
                           <li><a  href="reportes.php">Reportes del Sistema</a></li>
+                          <li><a  href="historialtrabajador.php">Historial Trabajador</a></li>
                           <li><a  href="responsive_table.html">Responsive Table</a></li>
                       </ul>
                   </li>

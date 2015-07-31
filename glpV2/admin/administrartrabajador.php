@@ -11,6 +11,27 @@ require_once('../conexion.php');
 	//mostrar los camiones que hay
 	$sqlCamiones = "select * from camion where not exists(select id_camion_trab_activo from trabajadoractivo where camion.id_cam=trabajadoractivo.id_camion_trab_activo) and estado_cam='1'";
 	$ejecCamiones=mysql_query($sqlCamiones,$conexion);  
+
+  //mostrar el stock de gas 5, 15, 45
+        //Total de stock
+        $sqlSumaStockTotalProductos="SELECT SUM(stock_prod) as totalcilindros FROM producto WHERE tipo_producto_prod='cilindros'";
+        $ejecSumaStockTotalProductos=mysql_query($sqlSumaStockTotalProductos, $conexion);
+
+        //total de cilindros de 5
+        $sqlCilindros5kg= "SELECT stock_prod FROM producto WHERE kilos_prod ='5'";
+        $ejecCilindros5kg = mysql_query($sqlCilindros5kg,$conexion);
+        $arrayGas5kg =mysql_fetch_array($ejecCilindros5kg);
+        //total de cilindros de 15
+        $sqlCilindros15kg= "SELECT stock_prod FROM producto WHERE kilos_prod ='15'";
+        $ejecCilindros15kg = mysql_query($sqlCilindros15kg,$conexion);
+        $arrayGas15kg =mysql_fetch_array($ejecCilindros15kg);
+        //total de cilindros de 45
+        $sqlCilindros45kg= "SELECT stock_prod FROM producto WHERE kilos_prod ='45'";
+        $ejecCilindros45kg = mysql_query($sqlCilindros45kg,$conexion);
+        $arrayGas45kg =mysql_fetch_array($ejecCilindros45kg);
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +42,7 @@ require_once('../conexion.php');
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>Activar Trabajador</title>
+    <title>Activar Turno Trabajador</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
@@ -63,45 +84,102 @@ require_once('../conexion.php');
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper site-min-height">
-          	<h3><i class="fa fa-angle-right"></i> Activar Trabajador</h3>
+          	<h3><i class="fa fa-angle-right"></i> Activar Turno Trabajador</h3>
           	<div class="row mt">
           		<div class="col-lg-12">
           			<section id="oferta">
-						<article>
-							<form action="../administrartrabajador2.php" method="POST" class="form_oferta">
-								<br>
-								<label>Seleccione Trabajador</label>
-								<select name="trabajador" id="trabajador" class="form-control">
-									<?php 
-									while ($arrayTrabajador=mysql_fetch_array($ejecTrabajadores)){
-                    
-                    ?>
-                        <option value="<?php echo $arrayTrabajador['id_usu']?>"><?php echo $arrayTrabajador['nombre_usu']?>&nbsp;<?php echo $arrayTrabajador['apellido_usu']?></option> 
-                  <?php 
-                  }
-                  ?>
-                </select>
-                <br>
-                <label>Seleccione Camion</label>
-								<select name="camion" id="camion" class="form-control">
-									<?php 
-									while ($arrayCamion=mysql_fetch_array($ejecCamiones)) {;?>
-										<option value="<?php echo $arrayCamion['id_cam']?>"><?php echo $arrayCamion['marca_cam']?>&nbsp;<?php echo $arrayCamion['patente_cam']?></option>	
-									<?php };
-									?>
-								</select>
-								<br>
-								<label>Descripcion Stock</label>
-								<textarea name="stockcamion" placeholder="Ej: 3 gas 15Kg, 4 gas de 45 Kg, 1 gas de 5Kg..." class="form-control"></textarea>	
-								<br>
-								<input type="submit" class="btn btn-primary btn-block" value="ACTIVAR TRABAJADOR">
-								<br>
-							</form>
-						</article>
-					</section>          		</div>
-          	</div>
-			
-		</section><! --/wrapper -->
+      						<article>
+      							<form action="../administrartrabajador2.php" method="POST" class="form_oferta">
+      								<br>
+      								<label>Seleccione Trabajador</label>
+      								<select name="trabajador" id="trabajador" class="form-control">
+      									<?php 
+      									while ($arrayTrabajador=mysql_fetch_array($ejecTrabajadores)){
+                          
+                          ?>
+                              <option value="<?php echo $arrayTrabajador['id_usu']?>"><?php echo $arrayTrabajador['nombre_usu']?>&nbsp;<?php echo $arrayTrabajador['apellido_usu']?></option> 
+                        <?php 
+                        }
+                        ?>
+                      </select>
+                      <br>
+                      <label>Seleccione Camion</label>
+      								<select name="camion" id="camion" class="form-control">
+      									<?php 
+      									while ($arrayCamion=mysql_fetch_array($ejecCamiones)) {;?>
+      										<option value="<?php echo $arrayCamion['id_cam']?>"><?php echo $arrayCamion['marca_cam']?>&nbsp;<?php echo $arrayCamion['patente_cam']?></option>	
+      									<?php };
+      									?>
+      								</select>
+                      <br>
+                       
+                      <label>Seleccione Stock</label>
+                      <div class="form-control"> 
+                        <label>Gas de 5 KG: </label>
+                        <select name="gas5">
+                          <?php $num2=0;
+                              $num=(int)$arrayGas5kg['stock_prod']; 
+                              while ( $num2 <= $num) {
+                          ?> 
+                              <option value="<?php echo $num2;?>">
+                                <?php echo $num2;?>
+                              </option>
+                          <?php 
+                              $num2++;
+                              } 
+                          ?>  
+                                          
+                        </select>
+                      </div>
+                      <br>
+                      
+                      <label>Seleccione Stock</label>
+                      <div class="form-control"> 
+                        <label>Gas de 15 KG: </label>
+                       <select name="gas15">
+                          <?php $num2=0;
+                              $num=(int)$arrayGas15kg['stock_prod']; 
+                              while ( $num2 <= $num) {
+                          ?> 
+                              <option value="<?php echo $num2;?>">
+                                <?php echo $num2;?>
+                              </option>
+                          <?php 
+                              $num2++;
+                              } 
+                          ?>  
+                                          
+                        </select>
+                      </div>
+                      <br>
+
+                      <label>Seleccione Stock</label>
+                      <div class="form-control"> 
+                        <label>Gas de 45 KG: </label>
+                        <select name="gas45">
+                          <?php $num2=0;
+                              $num=(int)$arrayGas45kg['stock_prod']; 
+                              while ( $num2 <= $num) {
+                          ?> 
+                              <option value="<?php echo $num2;?>">
+                                <?php echo $num2;?>
+                              </option>
+                          <?php 
+                              $num2++;
+                              } 
+                          ?>  
+                                          
+                        </select>
+                      </div>
+      								<br>
+      								<input type="submit" class="btn btn-primary btn-block" value="ACTIVAR TRABAJADOR">
+      								<br>
+      							</form>
+      						</article>
+      					</section>          		
+              </div>
+            </div>
+    		  </section>
       </section><!-- /MAIN CONTENT -->
 
       <!--main content end-->

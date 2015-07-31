@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once('conexion.php');
-$titulo_oferta=$_POST['titulo_oferta'];
+$titulo_oferta=$_POST['tipo_prod'];
 $descrip_oferta=$_POST['descrip_oferta'];
 $valor_oferta=$_POST['valor_oferta'];
 $stock_oferta=$_POST['stock_oferta'];

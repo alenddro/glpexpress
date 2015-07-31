@@ -1,7 +1,8 @@
 <?php 
 session_start();
 header('Content-Type: text/html; charset=ISO-8859-1');
-require_once('../conexion.php');   
+require_once('../conexion.php');
+require_once('../admin/assets/function/arreglarhorafecha.php');   
 ?>
 <!DOCTYPE html>
 <html lang="en">

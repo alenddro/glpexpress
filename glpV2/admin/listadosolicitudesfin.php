@@ -125,22 +125,22 @@ require_once('../conexion.php');
                                                                       ?>
 
                                                                      <div class="col-xs-12 listado-trabajador">
-                                                                         <div class="col-xs-8"><a href="#versolicitud<?php echo $arraySolicitud['id_soli']?>" data-toggle="collapse"><?php echo "Solicitud N:".$idsol." | ";?> &nbsp;<?php echo $arraySolicitud['fec_solicitud_soli']." | ";?>  &nbsp;  <?php echo $arraySolicitud['nombre_prod']; ?>&nbsp;  | FINALIZADA 
+                                                                         <div class="col-xs-9"><a href="#versolicitud<?php echo $arraySolicitud['id_soli']?>" data-toggle="collapse"><?php echo "Solicitud N:".$idsol." | ";?> &nbsp;<?php echo $arraySolicitud['fec_solicitud_soli']." | ";?>  &nbsp;  <?php echo $arraySolicitud['nombre_prod']; ?>&nbsp;  | FINALIZADA 
                                                                         </a></div>
                                                                              <?php if($arraySolicitudDatos['tipo_comentario_cli_soli']=='felicitacion'){
-                                                                                    echo "<div class='col-xs-4 text-right'><div class='btn btn-primary'>&nbsp;</div></div>";
+                                                                                    echo "<div class='col-xs-3 text-right'><div class='btn btn-primary'>&nbsp;</div></div>";
                                                                                 }elseif($arraySolicitudDatos['tipo_comentario_cli_soli']=='reclamo'){
-                                                                                    echo "<div class='col-xs-4 text-right'><div class='btn btn-danger'>&nbsp;</div></div>";
+                                                                                    echo "<div class='col-xs-3 text-right'><div class='btn btn-danger'>&nbsp;</div></div>";
                                                                                 }elseif($arraySolicitudDatos['tipo_comentario_cli_soli']=='otro'){
-                                                                                    echo "<div class='col-xs-4 text-right'><div class='btn btn-success'>&nbsp;</div></div>";
+                                                                                    echo "<div class='col-xs-3 text-right'><div class='btn btn-success'>&nbsp;</div></div>";
                                                                                 }elseif($arraySolicitudDatos['tipo_comentario_cli_soli']=='mejoras'){
-                                                                                    echo "<div class='col-xs-4 text-right'><div class='btn btn-warning'>&nbsp;</div></div>";
+                                                                                    echo "<div class='col-xs-3 text-right'><div class='btn btn-warning'>&nbsp;</div></div>";
                                                                                 }else{
-                                                                                    echo "<div class='col-xs-4 text-right'><div class='btn btn-default'>&nbsp;</div></div>";
+                                                                                    echo "<div class='col-xs-3 text-right'><div class='btn btn-default'>&nbsp;</div></div>";
                                                                                 }
                                                                             ;?> 
                                                                             <div id="versolicitud<?php echo $arraySolicitud['id_soli']?>" class="collapse">
-                                                                            <h1>Solicitud numero: <?php echo $idsol;?></h1> 
+                                                                            <h1 style="display:inline-block">Solicitud numero: <?php echo $idsol;?></h1> 
                                                                             <div class="row">
                                                                                 <div class="col-xs-12 col-md-12 ">
                                                                                     <article class="container">

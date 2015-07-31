@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once('conexion.php');
-$titulo_promocion=$_POST['titulo_promocion'];
+$titulo_promocion=$_POST['tipo_prod'];
 $descrip_promocion=$_POST['descrip_promocion'];
 $valor_promocion=$_POST['valor_promocion'];
 $stock_promocion=$_POST['stock_promocion'];

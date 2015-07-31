@@ -42,16 +42,127 @@ require_once('../isset/header-estadisticas.php');
             $maximocuenta= $arrayTotalSolicitudesPorTrabajador['COUNT(*)'];
         }
 
+        //consulta total de cada cilindros mas vendido (solicitud finalizada)
+        $sqlTotalCilindrosMasVendidos ="select producto_id_soli,COUNT(*) from solicitud where (estado_solicitud_soli='finalizado' or solicitud.estado_solicitud_soli='oculto') group by producto_id_soli LIMIT 1";
+        $ejecTotalCilindrosMasVendidos = mysql_query($sqlTotalCilindrosMasVendidos, $conexion);
+        $arrayTotalCilindrosMasVendidos=mysql_fetch_array($ejecTotalCilindrosMasVendidos);
+        $maximocilindro = $arrayTotalCilindrosMasVendidos['COUNT(*)'];
 
-      //Seleccionamos las solicitudes activas que sean de la fecha de hoy que tengan un motivo de rechazo
-      $sqlSolicitudesActivasRechazo="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m-%d')='$fechahorahoy' and motivo_rech_soli!='' and estado_solicitud_soli='activo' order by id_soli desc limit 5";
-      $ejecSolicitudesActivasRechazo=mysql_query($sqlSolicitudesActivasRechazo,$conexion);
+            //sacar los datos del producto mas vendido
+            $id_producto_mas_vendido=$arrayTotalCilindrosMasVendidos['producto_id_soli'];
+            $sqlDatosProductoMasVendido="SELECT * FROM producto WHERE id_prod='$id_producto_mas_vendido'";
+            $ejecDatosProductoMasVendido=mysql_query($sqlDatosProductoMasVendido,$conexion);
+            $arrayDatosProductoMasVendido=mysql_fetch_array($ejecDatosProductoMasVendido);
 
-      //listado trabajadores activos
-      $sqlListadoTrabajadores="select * from usuario,trabajadoractivo where usuario.esadmin='1' and usuario.id_usu=trabajadoractivo.id_trab_activo order by usuario.id_usu desc";
-      $ejecListadoTrabajadores=mysql_query($sqlListadoTrabajadores, $conexion);
-      
-  
+
+        //Seleccionamos las solicitudes activas que sean de la fecha de hoy que tengan un motivo de rechazo
+        $sqlSolicitudesActivasRechazo="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m-%d')='$fechahorahoy' and motivo_rech_soli!='' and estado_solicitud_soli='activo' order by id_soli desc limit 5";
+        $ejecSolicitudesActivasRechazo=mysql_query($sqlSolicitudesActivasRechazo,$conexion);
+
+        //listado trabajadores activos
+        $sqlListadoTrabajadores="select * from usuario,trabajadoractivo where usuario.esadmin='1' and usuario.id_usu=trabajadoractivo.id_trab_activo order by usuario.id_usu desc";
+        $ejecListadoTrabajadores=mysql_query($sqlListadoTrabajadores, $conexion);
+
+        //Total de stock
+        $sqlSumaStockTotalProductos="SELECT SUM(stock_prod) as totalcilindros FROM producto WHERE tipo_producto_prod='cilindros'";
+        $ejecSumaStockTotalProductos=mysql_query($sqlSumaStockTotalProductos, $conexion);
+
+        //total de cilindros de 5
+        $sqlCilindros5kg= "SELECT stock_prod FROM producto WHERE kilos_prod ='5'";
+        $ejecCilindros5kg = mysql_query($sqlCilindros5kg,$conexion);
+
+        //total de cilindros de 15
+        $sqlCilindros15kg= "SELECT stock_prod FROM producto WHERE kilos_prod ='15'";
+        $ejecCilindros15kg = mysql_query($sqlCilindros15kg,$conexion);
+
+        //total de cilindros de 45
+        $sqlCilindros45kg= "SELECT stock_prod FROM producto WHERE kilos_prod ='45'";
+        $ejecCilindros45kg = mysql_query($sqlCilindros45kg,$conexion);
+
+        //Total de ventas por mes
+            //mes Enero
+            $fechadiamesEnero= date("Y-01");
+            $sqlSolicitudesVentaAnoEnero="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesEnero' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $ejecSolicitudesVentaAnoEnero=mysql_query($sqlSolicitudesVentaAnoEnero, $conexion);
+            $countEnero=mysql_num_rows($ejecSolicitudesVentaAnoEnero);
+
+            //mes Febrero
+            $fechadiamesFebrero= date("Y-02");
+            $sqlSolicitudesVentaAnoFebrero="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesFebrero' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $ejecSolicitudesVentaAnoFebrero=mysql_query($sqlSolicitudesVentaAnoFebrero, $conexion);
+            $countFebrero=mysql_num_rows($ejecSolicitudesVentaAnoFebrero);
+
+            //mes Marzo
+            $fechadiamesMarzo= date("Y-03");
+            $sqlSolicitudesVentaAnoMarzo="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesMarzo' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $ejecSolicitudesVentaAnoMarzo=mysql_query($sqlSolicitudesVentaAnoMarzo, $conexion);
+            $countMarzo=mysql_num_rows($ejecSolicitudesVentaAnoMarzo);
+
+            //mes Abril
+            $fechadiamesAbril= date("Y-04");
+            $sqlSolicitudesVentaAnoAbril="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesAbril' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $ejecSolicitudesVentaAnoAbril=mysql_query($sqlSolicitudesVentaAnoAbril, $conexion);
+            $countAbril=mysql_num_rows($ejecSolicitudesVentaAnoAbril);
+
+            //mes Mayo
+            $fechadiamesMayo= date("Y-05");
+            $sqlSolicitudesVentaAnoMayo="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesMayo' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $ejecSolicitudesVentaAnoMayo=mysql_query($sqlSolicitudesVentaAnoMayo, $conexion);
+            $countMayo=mysql_num_rows($ejecSolicitudesVentaAnoMayo);
+
+            //mes Junio
+            $fechadiamesJunio= date("Y-06");
+            $sqlSolicitudesVentaAnoJunio="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesJunio' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $ejecSolicitudesVentaAnoJunio=mysql_query($sqlSolicitudesVentaAnoJunio, $conexion);
+            $countJunio=mysql_num_rows($ejecSolicitudesVentaAnoJunio);
+
+            //mes Julio
+            $fechadiamesJulio= date("Y-07");
+            $sqlSolicitudesVentaAnoJulio="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesJulio' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $ejecSolicitudesVentaAnoJulio=mysql_query($sqlSolicitudesVentaAnoJulio, $conexion);
+            $countJulio=mysql_num_rows($ejecSolicitudesVentaAnoJulio);
+
+            //mes Agosto
+            $fechadiamesAgosto= date("Y-08");
+            $sqlSolicitudesVentaAnoAgosto="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesAgosto' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $ejecSolicitudesVentaAnoAgosto=mysql_query($sqlSolicitudesVentaAnoAgosto, $conexion);
+            $countAgosto=mysql_num_rows($ejecSolicitudesVentaAnoAgosto);
+
+            //mes Septiembre
+            $fechadiamesSeptiembre= date("Y-09");
+            $sqlSolicitudesVentaAnoSeptiembre="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesSeptiembre' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $ejecSolicitudesVentaAnoSeptiembre=mysql_query($sqlSolicitudesVentaAnoSeptiembre, $conexion);
+            $countSeptiembre=mysql_num_rows($ejecSolicitudesVentaAnoSeptiembre);
+
+            //mes Octubre
+            $fechadiamesOctubre= date("Y-10");
+            $sqlSolicitudesVentaAnoOctubre="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesOctubre' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $ejecSolicitudesVentaAnoOctubre=mysql_query($sqlSolicitudesVentaAnoOctubre, $conexion);
+            $countOctubre=mysql_num_rows($ejecSolicitudesVentaAnoSeptiembre);
+
+            //mes Noviembre
+            $fechadiamesNoviembre= date("Y-11");
+            $sqlSolicitudesVentaAnoNoviembre="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesNoviembre' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $ejecSolicitudesVentaAnoNoviembre=mysql_query($sqlSolicitudesVentaAnoNoviembre, $conexion);
+            $countNoviembre=mysql_num_rows($ejecSolicitudesVentaAnoNoviembre);
+
+            //mes Diciembre
+            $fechadiamesDiciembre= date("Y-12");
+            $sqlSolicitudesVentaAnoDiciembre="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesDiciembre' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $ejecSolicitudesVentaAnoDiciembre=mysql_query($sqlSolicitudesVentaAnoDiciembre, $conexion);
+            $countDiciembre=mysql_num_rows($ejecSolicitudesVentaAnoDiciembre);
+
+
+
+        //Ventas Totales en el año
+            $fechaanoactual= date("Y");
+            $sqlSolicitudesVentaAno="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y')='$fechaanoactual' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $ejecSolicitudesVentaAno=mysql_query($sqlSolicitudesVentaAno, $conexion);
+            $countAno=mysql_num_rows($ejecSolicitudesVentaAno);
+
+
+
+
   }else{
       $todook="Algo Anda Mal!";
   }
@@ -246,16 +357,16 @@ require_once('../isset/header-estadisticas.php');
                       	<div class="col-md-4 col-sm-4 mb">
                       		<div class="white-panel pn">
                       			<div class="white-header">
-						  			<h5>TOP PRODUCT</h5>
+						  			<h5>PRODUCTO MAS VENDIDO</h5>
                       			</div>
 								<div class="row">
-									<div class="col-sm-6 col-xs-6 goleft">
-										<p><i class="fa fa-heart"></i> 122</p>
+									<div class="col-sm-7 col-xs-5 goleft">
+										<p><i class="fa fa-heart"></i><?php echo $arrayDatosProductoMasVendido['nombre_prod']?>: <?php echo $maximocilindro;?></p>
 									</div>
-									<div class="col-sm-6 col-xs-6"></div>
+									<div class="col-sm-7 col-xs-5"></div>
 	                      		</div>
 	                      		<div class="centered">
-										<img src="assets/img/product.png" width="120">
+										<img style="border-radius:5px;" src="../<?php echo $arrayDatosProductoMasVendido['ruta_img_prod']; ?>" width="120">
 	                      		</div>
                       		</div>
                       	</div><!-- /col-md-4 -->
@@ -264,7 +375,7 @@ require_once('../isset/header-estadisticas.php');
 							<!-- WHITE PANEL - TOP USER -->
 							<div class="white-panel pn">
 								<div class="white-header">
-									<h5>Trabajador Destacado</h5>
+									<h5>TRABAJADOR DESTACADO</h5>
 								</div>
 								<p><img src="assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
 								<p><b><?php echo $nombremaximo; ?></b></p>
@@ -332,14 +443,23 @@ require_once('../isset/header-estadisticas.php');
 						<div class="col-md-4 mb">
 							<!-- STOCK -->
 							<div class="instagram-panel pn">
-                <br>
-                <br>
+                            <br>
+                            <h4 style="color:white;">Stocks</h4>
+                            <br>
 								<img src="assets/img/gas-icon.png"  alt="gas-icon">
 								<p>TOTAL<br/>
-									77 CILINDROS
+									<?php
+                                        $arraySumaStockTotalProductos= mysql_fetch_array($ejecSumaStockTotalProductos);
+                                        echo $arraySumaStockTotalProductos['totalcilindros'];
+
+                                        $arrayCilindros5kg = mysql_fetch_array($ejecCilindros5kg);
+                                        $arrayCilindros15kg = mysql_fetch_array($ejecCilindros15kg);
+                                        $arrayCilindros45kg = mysql_fetch_array($ejecCilindros45kg);
+
+                                    ?>
 								</p>
-                <br>
-								<p><img src="assets/img/gas-icon.png" width="15" alt="gas-icon"> 5kg: 18 | <img src="assets/img/gas-icon.png" width="15" alt="gas-icon"> 15kg: 49 | <img src="assets/img/gas-icon.png" width="15" alt="gas-icon"> 45kg: 10 </p>
+                                 <br>
+								<p><img src="assets/img/gas-icon.png" width="15" alt="gas-icon"> 5kg: <?php echo $arrayCilindros5kg['stock_prod'];?> | <img src="assets/img/gas-icon.png" width="15" alt="gas-icon"> 15kg: <?php echo $arrayCilindros15kg['stock_prod'];?>  | <img src="assets/img/gas-icon.png" width="15" alt="gas-icon"> 45kg: <?php echo $arrayCilindros45kg['stock_prod'];?>  </p>
 							</div>
 						</div><!-- /col-md-4 -->
 						
@@ -347,12 +467,12 @@ require_once('../isset/header-estadisticas.php');
 							<!-- ESTADISTICAS -->
 							<div class="darkblue-panel pn">
 								<div class="darkblue-header">
-									<h5>REVENUE</h5>
+									<h5>VENTAS MENSUALES</h5>
 								</div>
 								<div class="chart mt">
-									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
+									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[<?php echo  $countEnero ;?>,<?php echo  $countFebrero ;?>,<?php echo  $countMarzo ;?>,<?php echo  $countAbril ;?>,<?php echo  $countMayo ;?>,<?php echo  $countJunio ;?>,<?php echo  $countJulio ;?>,<?php echo  $countAgosto ;?>,<?php echo  $countSeptiembre ;?>,<?php echo  $countOctubre ;?>,<?php echo  $countNoviembre ;?>,<?php echo  $countDiciembre ;?>]"></div>
 								</div>
-								<p class="mt"><b>$ 17,980</b><br/>Month Income</p>
+								<p class="mt"><b><?php echo $countAno ;?></b><br/>VENTAS AL AÑO</p>
 							</div>
 						</div><!-- /col-md-4 -->
 						
@@ -395,7 +515,7 @@ require_once('../isset/header-estadisticas.php');
                           </ul>
                           <?php while ($arraySql=mysql_fetch_array($ejecSql)) {; ?>
                           <div class="bar">
-                              <div class="title"><?php echo $arraySql['fec_vista']; ?></div>
+                              <div class="title" style="font-size:10px;"><?php echo $arraySql['fec_vista']; ?></div>
                               <?php
                                 $porcentaje= ($arraySql['times'] * 100) / 10000;
                               ?>
@@ -480,7 +600,7 @@ require_once('../isset/header-estadisticas.php');
 
                       <!-- CALENDAR-->
                       <div id="calendar" class="mb">
-                          <div class="panel green-panel no-margin">
+                          <!-- <div class="panel green-panel no-margin">
                               <div class="panel-body">
                                   <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
                                       <div class="arrow"></div>
@@ -489,7 +609,7 @@ require_once('../isset/header-estadisticas.php');
                                   </div>
                                   <div id="my-calendar"></div>
                               </div>
-                          </div>
+                          </div> -->
                       </div><!-- / calendar -->
                       
                   </div><!-- /col-lg-3 -->

@@ -1,7 +1,13 @@
 <?php 
 session_start();
 header('Content-Type: text/html; charset=ISO-8859-1');
-require_once('../conexion.php');   
+require_once('../conexion.php');
+
+
+        //seleccionar los productos activos
+            $sqlProductosActivos="SELECT * FROM producto WHERE estado_prod='1'";
+            $ejecProductosActivos=mysql_query($sqlProductosActivos, $conexion);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,6 +62,7 @@ require_once('../conexion.php');
       <section id="main-content">
           <section class="wrapper site-min-height">
           	<h3><i class="fa fa-angle-right"></i> Agregar Oferta</h3>
+            <p>Oferta Ejemplo: Solo por hoy producto XX a $10.000</p>
           	<div class="row mt">
           		<div class="col-lg-12">
           			<section id="oferta">
@@ -63,10 +70,13 @@ require_once('../conexion.php');
 							<form action="../agregaroferta2.php" enctype="multipart/form-data" method="POST" role="form" class="form_oferta">
 								<div class="agregar-oferta">
 									<div class="form-group">
-										<label for="nombreoferta">Titulo Oferta</label>
-										<input type="text" class="form-control" name="titulo_oferta" placeholder="ingrese Titulo de Oferta">
-										<hr>
-									</div>
+                                        <label for="tipoProducto">Seleccione Producto</label>
+                                        <select name="tipo_prod" class="form-control">
+                                        <?php while ( $arrayProductosActivos=mysql_fetch_array($ejecProductosActivos)) { ;?> 
+                                            <option value="<?php echo $arrayProductosActivos['nombre_prod'];?>"><?php echo $arrayProductosActivos['nombre_prod'];?></option>
+                                        <?php } ;?>
+                                        </select>
+                                    </div>
 									<div class="form-group">
 										<label for="descripoferta">Descripción Oferta</label>
 										<input type="text" class="form-control" name="descrip_oferta" placeholder="ingrese Desccripción de Oferta">

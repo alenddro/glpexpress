@@ -3,7 +3,7 @@ session_start();
 header('Content-Type: text/html; charset=ISO-8859-1');
 require_once('conexion.php');
         //id usuario logueado
-        $sqlIDusuarioLogueado="select * from usuario where nombreusu_usu='$_SESSION[nombreusu_usu]'";
+        $sqlIDusuarioLogueado="select * from usuario where id_usu='$_SESSION[id_usu]'";
         $ejecIDusuarioLogueado=mysql_query($sqlIDusuarioLogueado, $conexion);
         $arrayIDusuarioLogueado=mysql_fetch_array($ejecIDusuarioLogueado);
 
