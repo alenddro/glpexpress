@@ -3,6 +3,7 @@ session_start();
 header('Content-Type: text/html; charset=ISO-8859-1');
 require_once('../conexion.php');
 
+
     function tipousuario($tipo){
 
         if ($tipo==0) {
@@ -12,9 +13,9 @@ require_once('../conexion.php');
         }elseif($tipo==3){
             $tipo="Secretaria";
         }elseif($tipo==4){
-            $tipo="Desactivado";
+            $tipo="Usuario Dado de Baja";
         }elseif($tipo==5){
-            $tipo="Desactivado";
+            $tipo="Trabajador Dado de Baja";
         }
 
         return $tipo;
@@ -32,8 +33,46 @@ require_once('../conexion.php');
         return array($estado, $estadousu);
     }
 
-    $sqlListarUsuariosSistema = "select * from usuario where esadmin<>'2' order by esadmin desc";
+    /* querys */
+      $url = basename($_SERVER ["PHP_SELF"]);
+      if (isset($_GET['pos'])){
+        $ini=$_GET['pos'];
+      }else{ 
+        $ini=1;
+      }
+      $limit_end = 15;
+      $init = ($ini-1) * $limit_end;
+
+      $count="select count(*) from usuario where esadmin<>'2' ";
+      $num= mysql_query($count,$conexion);
+      $x = mysql_fetch_array($num);
+      $total = ceil($x[0]/$limit_end);
+
+    //Cantidad TOTAL de usuarios
+    $sqlListarUsuariosSistema = "select * from usuario where esadmin<>'2' order by esadmin desc  LIMIT $init, $limit_end";
     $ejecListarUsuariosSistema=mysql_query($sqlListarUsuariosSistema,$conexion);
+
+    //cantidad de USUARIOS TOTAL 
+    $sqlListarUsuariosTOTALSistema = "select * from usuario where esadmin<>'1' and esadmin<>'2' and esadmin<>'3'";
+    $ejecListarUsuariosTOTALSistema=mysql_query($sqlListarUsuariosTOTALSistema,$conexion);
+    $cantidadListarUsuariosTOTALSistema=mysql_num_rows($ejecListarUsuariosTOTALSistema);
+
+    //cantidad de USUARIOS ELIMINADOS TOTAL 
+    $sqlListarUsuariosELIMINADOSTOTALSistema = "select * from usuario where esadmin='4'";
+    $ejecListarUsuariosELIMINADOSTOTALSistema=mysql_query($sqlListarUsuariosELIMINADOSTOTALSistema,$conexion);
+    $cantidadListarUsuariosELIMINADOSTOTALSistema=mysql_num_rows($ejecListarUsuariosELIMINADOSTOTALSistema);
+
+    //cantidad de TRABAJADORES TOTAL 
+    $sqlListarTrabajadoresTOTALSistema = "select * from usuario where esadmin<>'0' and esadmin<>'2'";
+    $ejecListarTrabajadoresTOTALSistema=mysql_query($sqlListarTrabajadoresTOTALSistema,$conexion);
+    $cantidadListarTrabajadoresTOTALSistema=mysql_num_rows($ejecListarTrabajadoresTOTALSistema);
+
+    //cantidad de TRABAJADORES ELIMINADOS TOTAL 
+    $sqlListarTrabajadoresELIMINADOSTOTALSistema = "select * from usuario where esadmin='5'";
+    $ejecListarTrabajadoresELIMINADOSTOTALSistema=mysql_query($sqlListarTrabajadoresELIMINADOSTOTALSistema,$conexion);
+    $cantidadListarTrabajadoresELIMINADOSTOTALSistema=mysql_num_rows($ejecListarTrabajadoresELIMINADOSTOTALSistema);
+
+
 
 ?>
 <!DOCTYPE html>
@@ -41,9 +80,6 @@ require_once('../conexion.php');
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Dashboard">
-    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
     <title>Administrar Usuarios Y Trabajadores</title>
 
@@ -57,6 +93,8 @@ require_once('../conexion.php');
     <link href="assets/css/style-responsive.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+    <script src="assets/ajax/modalmensaje.js"></script>
+    <script src="../isset/functions.php"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -94,6 +132,10 @@ require_once('../conexion.php');
                       <div class="col-md-12">
                           <div class="content-panel">
                               <table class="table table-striped table-advance table-hover ">
+                                  <h5>Cantidad de Usuarios en el sistema: <?php echo $cantidadListarUsuariosTOTALSistema?></h5>
+                                  <h5>Cantidad de Usuarios Eliminados: <?php echo $cantidadListarUsuariosELIMINADOSTOTALSistema?></h5>
+                                  <h5>Cantidad de Trabajadores: <?php echo $cantidadListarTrabajadoresTOTALSistema?></h5>
+                                  <h5>Cantidad de Trabajadores Eliminados: <?php echo $cantidadListarTrabajadoresELIMINADOSTOTALSistema?></h5>
                                   <hr>
                                   <thead>
                                   <tr>
@@ -116,13 +158,60 @@ require_once('../conexion.php');
                                       <td class="hidden-phone"><button class="btn <?php list($estado, $estadousu)=estadousuario($arrayListarUsuariosSistema['esadmin']); echo $estado; ?> btn-xs"><i class="fa <?php list($estado, $estadousu)=estadousuario($arrayListarUsuariosSistema['esadmin']); echo $estadousu; ?>"></i></button></td>
                                       <td>
                                           <!--<button class="btn btn-success btn-xs"><i class="fa fa-check"><a href="javascript:;"></a></i></button>-->
-                                          <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"><a href="javascript:;"></a></i></button>
-                                          <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "><a href="javascript:;"></a></i></button>
+                                          <a href="#" data-toggle="modal" data-target="#myModal<?php echo $arrayListarUsuariosSistema['id_usu']; ?>" onClick="mensajeUsu(<?php echo $arrayListarUsuariosSistema['id_usu'];?>, '<?php echo $arrayListarUsuariosSistema['nombre_usu'];?>', '<?php echo $arrayListarUsuariosSistema['apellido_usu'];?>', '<?php echo $arrayListarUsuariosSistema['email_usu'];?>');"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
+                                          <a href="javascript:;"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
                                       </td>
                                   </tr>
                                   <?php }; ?>
                                   </tbody>
                               </table>
+
+                              <div class="text-center">
+                                <ul class='pagination pagination-lg '>
+                                  <?php
+                                  /****************************************/
+                                  if(($ini - 1) == 0){
+                                  ?>  
+                                    <li><a href='#'>&laquo;</a></li>
+                                  <?php
+                                  }else{
+                                  ?>
+                                    <li><a href="<?php echo $url ;?>?pos=<?php echo ($ini-1) ;?> " ><b>&laquo;</b></a></li>
+                                  <?php
+                                  }
+                                  /****************************************/
+                                  for($k=1; $k <= $total; $k++){
+                                    if($ini == $k){
+                                  ?>
+                                      <li><a href='#'><b><?php echo $k ;?></b></a></li>
+                                  <?php
+                                  }else{
+                                  ?>  
+                                  <?php
+                                    }
+                                  }
+                                  ?>
+                                  <li><a href="javascript:void(0);"> DE </a></li>
+                                  <li><a href="<?php echo $url ;?>?pos=<?php echo $k-1 ;?>"><?php echo $k-1 ;?></a></li>
+
+                                  <?php
+                                  /****************************************/
+                                  if($ini == $total){
+                                  ?>
+                                    <li><a href='#'>&raquo;</a></li>
+                                  <?php
+                                  }else{
+                                  ?>
+                                    <li><a href="<?php echo $url;?>?pos=<?php echo ($ini+1) ;?>"><b>&raquo;</b></a></li>
+                                  <?php
+                                  }
+                                  ?>
+                                </ul>
+                              </div>
+
+                              <div id="containermodal"></div>
+                              <div id="respuestaMensajeModal"></div>
+
                           </div><!-- /content-panel -->
                       </div><!-- /col-md-12 -->
                   </div><!-- /row -->
@@ -156,12 +245,7 @@ require_once('../conexion.php');
     <!--script for this page-->
     
   <script>
-      //custom select box
-
-      $(function(){
-          $('select.styled').customSelect();
-      });
-
+   
   </script>
 
   </body>

@@ -6,7 +6,7 @@ require_once('../isset/header-estadisticas.php');
 
   if ($conexion) {
 
-      $fechahorahoy= date("Y-m-d");
+      
       $todook="OK!";
       $nombremaximo="";
       $fecharegistro="";
@@ -53,11 +53,6 @@ require_once('../isset/header-estadisticas.php');
             $sqlDatosProductoMasVendido="SELECT * FROM producto WHERE id_prod='$id_producto_mas_vendido'";
             $ejecDatosProductoMasVendido=mysql_query($sqlDatosProductoMasVendido,$conexion);
             $arrayDatosProductoMasVendido=mysql_fetch_array($ejecDatosProductoMasVendido);
-
-
-        //Seleccionamos las solicitudes activas que sean de la fecha de hoy que tengan un motivo de rechazo
-        $sqlSolicitudesActivasRechazo="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m-%d')='$fechahorahoy' and motivo_rech_soli!='' and estado_solicitud_soli='activo' order by id_soli desc limit 5";
-        $ejecSolicitudesActivasRechazo=mysql_query($sqlSolicitudesActivasRechazo,$conexion);
 
         //listado trabajadores activos
         $sqlListadoTrabajadores="select * from usuario,trabajadoractivo where usuario.esadmin='1' and usuario.id_usu=trabajadoractivo.id_trab_activo order by usuario.id_usu desc";
@@ -227,47 +222,11 @@ require_once('../isset/header-estadisticas.php');
       <section id="main-content">
           <section class="wrapper">
 
-              <div class="row">
+              <div class="row" >
                   <div class="col-lg-9 main-chart">
-                  
-                  	<div class="row mtbox">
-                  		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
-                  			<div class="box1">
-					  			<span class="li_heart"></span>
-					  			<h3><?php echo $countTotalUsuarios;?></h3>
-                  			</div>
-					  			<p><?php echo $countTotalUsuarios;?> Usuarios registrados en el sistema.!</p>
-                  		</div>
-                  		<div class="col-md-2 col-sm-2 box0">
-                  			<div class="box1">
-					  			<span class="li_cloud"></span>
-					  			<h3><?php echo $countTotalTrabajadores;?></h3>
-                  			</div>
-					  			<p><?php echo $countTotalTrabajadores;?> Trabajadores registrados en el sistema.!</p>
-                  		</div>
-                  		<div class="col-md-2 col-sm-2 box0">
-                  			<div class="box1">
-					  			<span class="li_stack"></span>
-					  			<h3><?php echo $countSolicitudActiva;?></h3>
-                  			</div>
-					  			<p><?php echo $countSolicitudActiva;?> Pedidos Activos.</p>
-                  		</div>
-                  		<div class="col-md-2 col-sm-2 box0">
-                  			<div class="box1">
-					  			<span class="li_news"></span>
-					  			<h3><?php echo $countSolicitudFinalizada;?></h3>
-                  			</div>
-					  			<p><?php echo $countSolicitudFinalizada;?> Pedidos Finalizados.</p>
-                  		</div>
-                  		<div class="col-md-2 col-sm-2 box0">
-                  			<div class="box1">
-					  			<span class="li_data"></span>
-					  			<h3><?php echo  $todook; ?></h3>
-                  			</div>
-					  			<p><?php echo  $todook; ?> | En caso de consultas comunicarce con el Administrador.</p>
-                  		</div>
-                  	
-                  	</div><!-- /row mt -->	
+                    	<div class="row mtbox" id="navEstadisticas">
+                        
+          	          </div><!-- /row mt -->	
       <?php };?>
       <?php if ($_SESSION['esadmin']==3) {;?>
                      <section id="main-content">
@@ -318,40 +277,33 @@ require_once('../isset/header-estadisticas.php');
                       <div class="row mt">
                       <!-- SERVER STATUS PANELS -->
                       	<div class="col-md-4 col-sm-4 mb">
-                      		<div class="white-panel pn donut-chart">
-                      			<div class="white-header">
-						  			<h5>El peso de BD es <?php echo $pesoBD ?>KB</h5>
-                      			</div>
-								<div class="row">
-									<div class="col-sm-6 col-xs-6 goleft">
-                    <?php 
-                      $valorTotalBD=  10485760;
-
-
-                      $porcentocupado= $total_kb * 100 / $valorTotalBD;
-                      $porcentfaltante = 100 - $porcentocupado;
-
-
-                    ?>
-										<p><i class="fa fa-database"></i> <?php echo $pesoBD?>KB</p>
-									</div>
-	                      		</div>
-								<canvas id="serverstatus01" height="120" width="120"></canvas>
-								<script>
-									var doughnutData = [
-											{
-												value: <?php echo $porcentocupado; ?>,
-												color:"#68dff0"
-											},
-											{
-												value : <?php echo $porcentfaltante; ?>,
-												color : "#fdfdfd"
-											}
-										];
-										var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
-								</script>
-	                      	</div><!--/grey-panel -->
+                            <div class="green-panel pn">
+                                <?php 
+                                   $valorTotalBD=  10485760;
+                                    $porcentocupado= $total_kb * 100 / $valorTotalBD;
+                                    $porcentfaltante = 100 - $porcentocupado;
+                                ?>
+                                <div class="green-header">
+                                   <h5>El peso de BD es <?php echo $pesoBD ?>KB</h5>
+                                </div>
+                                <canvas id="serverstatus03" height="120" width="120" style="width: 120px; height: 120px;"></canvas>
+                                <script>
+                                    var doughnutData = [
+                                    {
+                                        value: <?php echo $porcentocupado; ?>,
+                                        color:"#2b2b2b"
+                                    },
+                                    {
+                                        value : <?php echo $porcentfaltante; ?>,
+                                        color : "#fffffd"
+                                    }
+                                    ];
+                                    var myDoughnut = new Chart(document.getElementById("serverstatus03").getContext("2d")).Doughnut(doughnutData);
+                                </script>
+                                <h3> <?php echo round($porcentocupado,3); ?>%</h3>
+                            </div>
                       	</div><!-- /col-md-4-->
+
                       	
 
                       	<div class="col-md-4 col-sm-4 mb">
@@ -470,7 +422,7 @@ require_once('../isset/header-estadisticas.php');
 									<h5>VENTAS MENSUALES</h5>
 								</div>
 								<div class="chart mt">
-									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[<?php echo  $countEnero ;?>,<?php echo  $countFebrero ;?>,<?php echo  $countMarzo ;?>,<?php echo  $countAbril ;?>,<?php echo  $countMayo ;?>,<?php echo  $countJunio ;?>,<?php echo  $countJulio ;?>,<?php echo  $countAgosto ;?>,<?php echo  $countSeptiembre ;?>,<?php echo  $countOctubre ;?>,<?php echo  $countNoviembre ;?>,<?php echo  $countDiciembre ;?>]"></div>
+									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[<?php echo $countEnero  ;?>,<?php echo  $countFebrero ;?>,<?php echo  $countMarzo ;?>,<?php echo  $countAbril ;?>,<?php echo  $countMayo ;?>,<?php echo  $countJunio ;?>,<?php echo  $countJulio ;?>,<?php echo  $countAgosto ;?>,<?php echo  $countSeptiembre ;?>,<?php echo  $countOctubre ;?>,<?php echo  $countNoviembre ;?>,<?php echo  $countDiciembre ;?>]"></div>
 								</div>
 								<p class="mt"><b><?php echo $countAno ;?></b><br/>VENTAS AL AÑO</p>
 							</div>
@@ -560,27 +512,8 @@ require_once('../isset/header-estadisticas.php');
                   <div class="col-lg-3 ds">
                     <!--COMPLETED ACTIONS DONUTS CHART-->
 						<h3>NOTIFICACIONES</h3>
-                      <?php while ($arraySolicitudesActivasRechazo=mysql_fetch_array($ejecSolicitudesActivasRechazo)) {; ?>                      
-                          <!-- First Action -->
-                          <?php 
-                            $id_nombre_usuario = $arraySolicitudesActivasRechazo['asignado_a_soli'];
-                            $seleccionarnombresolicitud="select * from usuario where id_usu='$id_nombre_usuario'";
-                            $ejecseleccionarnombresolicitud=mysql_query($seleccionarnombresolicitud,$conexion);
-                            $arrayseleccionarnombresolicitud=mysql_fetch_array($ejecseleccionarnombresolicitud);
 
-                          ?>
-                          <div class="desc">
-                          	<div class="thumb">
-                          		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                          	</div>
-                          	<div class="details">
-                              <h6>Rechaso Solicitud N: <?php echo $arraySolicitudesActivasRechazo['id_soli']; ?></h6>
-                          		<p><muted>Hora solicitud: <?php echo $arraySolicitudesActivasRechazo['fec_solicitud_soli']; ?></muted><br/>
-                          		   <a href="javascript:;"style="text-transform:uppercase;"><?php echo $arrayseleccionarnombresolicitud['nombre_usu']." ". $arrayseleccionarnombresolicitud['apellido_usu']; ?></a><br/> Motivo: <?php echo $arraySolicitudesActivasRechazo['motivo_rech_soli']; ?><br/>
-                          		</p>
-                          	</div>
-                          </div>
-                      <?php };  ?> 
+                      <div id="notificaciones"></div>
 
                        
 						<h3>TRABAJADORES ACTIVOS</h3>
@@ -699,6 +632,51 @@ require_once('../isset/header-estadisticas.php');
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
+
+  
+
+      //===============Notificaciones Tiempo Real===============//
+        
+          $.post('assets/ajax/notificaciones.php', function(h){
+              $('#notificaciones').html(h);
+              setTimeout("recargarNotificaciones()",8);
+          });
+
+          function recargarNotificaciones(){
+            $.post('assets/ajax/notificaciones.php', function(h){
+              $('#notificaciones').html(h);
+              setTimeout("recargarNotificaciones()",15000);
+            });
+          }
+        
+      //===============END Notificaciones Tiempo Real===============//
+
+       //===============Estadisticas NAV Tiempo Real===============//
+       
+          $.post('assets/ajax/nav-estadisticas.php', function(h){
+            $('#navEstadisticas').html(h);
+            setTimeout("recargaravEstadisticas()",8);
+          });
+
+          function recargaravEstadisticas(){
+            $.post('assets/ajax/nav-estadisticas.php', function(h){
+              $('#navEstadisticas').html(h);
+            setTimeout("recargaravEstadisticas()",15000);
+            });
+          }
+        
+      //===============END Estadisticas NAV Tiempo Real===============//
+      
+      
+          // $.ajax({
+          //     type:"POST",
+          //     url:"assets/content/notificaciones.php",
+          //     dataType:"html",
+          //     success: function(data){
+          //         $('#notificaciones').empty();
+          //         $("#notificaciones").append(data);                                            
+          //     }
+          // });
     </script>
   </body>
 </html>
