@@ -77,73 +77,73 @@ require_once('../isset/header-estadisticas.php');
         //Total de ventas por mes
             //mes Enero
             $fechadiamesEnero= date("Y-01");
-            $sqlSolicitudesVentaAnoEnero="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesEnero' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $sqlSolicitudesVentaAnoEnero="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesEnero' and (estado_solicitud_soli='finalizado' or estado_solicitud_soli='oculto') order by id_soli desc";
             $ejecSolicitudesVentaAnoEnero=mysql_query($sqlSolicitudesVentaAnoEnero, $conexion);
             $countEnero=mysql_num_rows($ejecSolicitudesVentaAnoEnero);
 
             //mes Febrero
             $fechadiamesFebrero= date("Y-02");
-            $sqlSolicitudesVentaAnoFebrero="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesFebrero' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $sqlSolicitudesVentaAnoFebrero="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesFebrero' and (estado_solicitud_soli='finalizado' or estado_solicitud_soli='oculto') order by id_soli desc";
             $ejecSolicitudesVentaAnoFebrero=mysql_query($sqlSolicitudesVentaAnoFebrero, $conexion);
             $countFebrero=mysql_num_rows($ejecSolicitudesVentaAnoFebrero);
 
             //mes Marzo
             $fechadiamesMarzo= date("Y-03");
-            $sqlSolicitudesVentaAnoMarzo="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesMarzo' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $sqlSolicitudesVentaAnoMarzo="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesMarzo' and (estado_solicitud_soli='finalizado' or estado_solicitud_soli='oculto') order by id_soli desc";
             $ejecSolicitudesVentaAnoMarzo=mysql_query($sqlSolicitudesVentaAnoMarzo, $conexion);
             $countMarzo=mysql_num_rows($ejecSolicitudesVentaAnoMarzo);
 
             //mes Abril
             $fechadiamesAbril= date("Y-04");
-            $sqlSolicitudesVentaAnoAbril="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesAbril' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $sqlSolicitudesVentaAnoAbril="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesAbril' and (estado_solicitud_soli='finalizado' or estado_solicitud_soli='oculto') order by id_soli desc";
             $ejecSolicitudesVentaAnoAbril=mysql_query($sqlSolicitudesVentaAnoAbril, $conexion);
             $countAbril=mysql_num_rows($ejecSolicitudesVentaAnoAbril);
 
             //mes Mayo
             $fechadiamesMayo= date("Y-05");
-            $sqlSolicitudesVentaAnoMayo="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesMayo' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $sqlSolicitudesVentaAnoMayo="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesMayo' and (estado_solicitud_soli='finalizado' or estado_solicitud_soli='oculto') order by id_soli desc";
             $ejecSolicitudesVentaAnoMayo=mysql_query($sqlSolicitudesVentaAnoMayo, $conexion);
             $countMayo=mysql_num_rows($ejecSolicitudesVentaAnoMayo);
 
             //mes Junio
             $fechadiamesJunio= date("Y-06");
-            $sqlSolicitudesVentaAnoJunio="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesJunio' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $sqlSolicitudesVentaAnoJunio="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesJunio' and (estado_solicitud_soli='finalizado' or estado_solicitud_soli='oculto') order by id_soli desc";
             $ejecSolicitudesVentaAnoJunio=mysql_query($sqlSolicitudesVentaAnoJunio, $conexion);
             $countJunio=mysql_num_rows($ejecSolicitudesVentaAnoJunio);
 
             //mes Julio
             $fechadiamesJulio= date("Y-07");
-            $sqlSolicitudesVentaAnoJulio="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesJulio' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $sqlSolicitudesVentaAnoJulio="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesJulio' and (estado_solicitud_soli='finalizado' or estado_solicitud_soli='oculto') order by id_soli desc";
             $ejecSolicitudesVentaAnoJulio=mysql_query($sqlSolicitudesVentaAnoJulio, $conexion);
             $countJulio=mysql_num_rows($ejecSolicitudesVentaAnoJulio);
 
             //mes Agosto
             $fechadiamesAgosto= date("Y-08");
-            $sqlSolicitudesVentaAnoAgosto="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesAgosto' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $sqlSolicitudesVentaAnoAgosto="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesAgosto' and (estado_solicitud_soli='finalizado' or estado_solicitud_soli='oculto') order by id_soli desc";
             $ejecSolicitudesVentaAnoAgosto=mysql_query($sqlSolicitudesVentaAnoAgosto, $conexion);
             $countAgosto=mysql_num_rows($ejecSolicitudesVentaAnoAgosto);
 
             //mes Septiembre
             $fechadiamesSeptiembre= date("Y-09");
-            $sqlSolicitudesVentaAnoSeptiembre="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesSeptiembre' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $sqlSolicitudesVentaAnoSeptiembre="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesSeptiembre' and (estado_solicitud_soli='finalizado' or estado_solicitud_soli='oculto') order by id_soli desc";
             $ejecSolicitudesVentaAnoSeptiembre=mysql_query($sqlSolicitudesVentaAnoSeptiembre, $conexion);
             $countSeptiembre=mysql_num_rows($ejecSolicitudesVentaAnoSeptiembre);
 
             //mes Octubre
             $fechadiamesOctubre= date("Y-10");
-            $sqlSolicitudesVentaAnoOctubre="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesOctubre' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $sqlSolicitudesVentaAnoOctubre="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesOctubre' and (estado_solicitud_soli='finalizado' or estado_solicitud_soli='oculto') order by id_soli desc";
             $ejecSolicitudesVentaAnoOctubre=mysql_query($sqlSolicitudesVentaAnoOctubre, $conexion);
             $countOctubre=mysql_num_rows($ejecSolicitudesVentaAnoSeptiembre);
 
             //mes Noviembre
             $fechadiamesNoviembre= date("Y-11");
-            $sqlSolicitudesVentaAnoNoviembre="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesNoviembre' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $sqlSolicitudesVentaAnoNoviembre="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesNoviembre' and (estado_solicitud_soli='finalizado' or estado_solicitud_soli='oculto') order by id_soli desc";
             $ejecSolicitudesVentaAnoNoviembre=mysql_query($sqlSolicitudesVentaAnoNoviembre, $conexion);
             $countNoviembre=mysql_num_rows($ejecSolicitudesVentaAnoNoviembre);
 
             //mes Diciembre
             $fechadiamesDiciembre= date("Y-12");
-            $sqlSolicitudesVentaAnoDiciembre="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesDiciembre' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $sqlSolicitudesVentaAnoDiciembre="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y-%m')='$fechadiamesDiciembre' and (estado_solicitud_soli='finalizado' or estado_solicitud_soli='oculto') order by id_soli desc";
             $ejecSolicitudesVentaAnoDiciembre=mysql_query($sqlSolicitudesVentaAnoDiciembre, $conexion);
             $countDiciembre=mysql_num_rows($ejecSolicitudesVentaAnoDiciembre);
 
@@ -151,7 +151,7 @@ require_once('../isset/header-estadisticas.php');
 
         //Ventas Totales en el año
             $fechaanoactual= date("Y");
-            $sqlSolicitudesVentaAno="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y')='$fechaanoactual' and estado_solicitud_soli='finalizado' order by id_soli desc";
+            $sqlSolicitudesVentaAno="SELECT * from solicitud where DATE_FORMAT(fec_solicitud_soli, '%Y')='$fechaanoactual' and (estado_solicitud_soli='finalizado' or estado_solicitud_soli='oculto') order by id_soli desc";
             $ejecSolicitudesVentaAno=mysql_query($sqlSolicitudesVentaAno, $conexion);
             $countAno=mysql_num_rows($ejecSolicitudesVentaAno);
 

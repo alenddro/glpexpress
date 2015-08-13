@@ -16,6 +16,8 @@ require_once('../conexion.php');
             $tipo="Usuario Dado de Baja";
         }elseif($tipo==5){
             $tipo="Trabajador Dado de Baja";
+        }elseif($tipo==6){
+            $tipo="Secretario/a Dado/a de Baja";
         }
 
         return $tipo;
@@ -25,7 +27,7 @@ require_once('../conexion.php');
         if ($estado==0 or $estado==1 or $estado==3) {
             $estado="btn-success";
             $estadousu="fa-check";
-        }elseif($estado==4 or $estado==5){
+        }elseif($estado==4 or $estado==5 or $estado==6){
             $estado="btn-danger";
             $estadousu="fa-times";
         }
@@ -53,7 +55,7 @@ require_once('../conexion.php');
     $ejecListarUsuariosSistema=mysql_query($sqlListarUsuariosSistema,$conexion);
 
     //cantidad de USUARIOS TOTAL 
-    $sqlListarUsuariosTOTALSistema = "select * from usuario where esadmin<>'1' and esadmin<>'2' and esadmin<>'3'";
+    $sqlListarUsuariosTOTALSistema = "select * from usuario where esadmin='0' or esadmin='1' or esadmin='3' ";
     $ejecListarUsuariosTOTALSistema=mysql_query($sqlListarUsuariosTOTALSistema,$conexion);
     $cantidadListarUsuariosTOTALSistema=mysql_num_rows($ejecListarUsuariosTOTALSistema);
 
@@ -63,7 +65,7 @@ require_once('../conexion.php');
     $cantidadListarUsuariosELIMINADOSTOTALSistema=mysql_num_rows($ejecListarUsuariosELIMINADOSTOTALSistema);
 
     //cantidad de TRABAJADORES TOTAL 
-    $sqlListarTrabajadoresTOTALSistema = "select * from usuario where esadmin<>'0' and esadmin<>'2'";
+    $sqlListarTrabajadoresTOTALSistema = "select * from usuario where esadmin='1' or esadmin='3'";
     $ejecListarTrabajadoresTOTALSistema=mysql_query($sqlListarTrabajadoresTOTALSistema,$conexion);
     $cantidadListarTrabajadoresTOTALSistema=mysql_num_rows($ejecListarTrabajadoresTOTALSistema);
 
@@ -103,7 +105,7 @@ require_once('../conexion.php');
     <![endif]-->
   </head>
 
-  <body>
+  <body id="myBody">
 
   <section id="container" >
       <!-- **********************************************************************************************************************************************************
@@ -136,6 +138,7 @@ require_once('../conexion.php');
                                   <h5>Cantidad de Usuarios Eliminados: <?php echo $cantidadListarUsuariosELIMINADOSTOTALSistema?></h5>
                                   <h5>Cantidad de Trabajadores: <?php echo $cantidadListarTrabajadoresTOTALSistema?></h5>
                                   <h5>Cantidad de Trabajadores Eliminados: <?php echo $cantidadListarTrabajadoresELIMINADOSTOTALSistema?></h5>
+                                  <div id="alertabaja" class="" style="display:none" role="alert"><p id="mensajebaja"></p></div>
                                   <hr>
                                   <thead>
                                   <tr>
@@ -159,7 +162,7 @@ require_once('../conexion.php');
                                       <td>
                                           <!--<button class="btn btn-success btn-xs"><i class="fa fa-check"><a href="javascript:;"></a></i></button>-->
                                           <a href="#" data-toggle="modal" data-target="#myModal<?php echo $arrayListarUsuariosSistema['id_usu']; ?>" onClick="mensajeUsu(<?php echo $arrayListarUsuariosSistema['id_usu'];?>, '<?php echo $arrayListarUsuariosSistema['nombre_usu'];?>', '<?php echo $arrayListarUsuariosSistema['apellido_usu'];?>', '<?php echo $arrayListarUsuariosSistema['email_usu'];?>');"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
-                                          <a href="javascript:;"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
+                                          <a href="javascript:;" onClick="<?php if($arrayListarUsuariosSistema['esadmin']==1 or $arrayListarUsuariosSistema['esadmin']==2 or $arrayListarUsuariosSistema['esadmin']==3 or $arrayListarUsuariosSistema['esadmin']==0){;?> dardebaja(<?php echo $arrayListarUsuariosSistema['id_usu'];?>, '<?php echo $arrayListarUsuariosSistema['nombre_usu'];?>', '<?php echo $arrayListarUsuariosSistema['apellido_usu'];?>');<?php }else{ ;?> dardealta(<?php echo $arrayListarUsuariosSistema['id_usu'];?>, '<?php echo $arrayListarUsuariosSistema['nombre_usu'];?>', '<?php echo $arrayListarUsuariosSistema['apellido_usu'];?>'); <?php };?>";><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
                                       </td>
                                   </tr>
                                   <?php }; ?>
@@ -212,6 +215,7 @@ require_once('../conexion.php');
                               <div id="containermodal"></div>
                               <div id="respuestaMensajeModal"></div>
 
+
                           </div><!-- /content-panel -->
                       </div><!-- /col-md-12 -->
                   </div><!-- /row -->
@@ -245,6 +249,47 @@ require_once('../conexion.php');
     <!--script for this page-->
     
   <script>
+    function dardebaja($id, $nombre, $apellido){
+      $.ajax({
+            url : "assets/ajax/dardebaja.php",
+            type: "POST",
+            data : {
+              id:$id,
+              nom: $nombre,
+              ape: $apellido
+            }
+      }).done(function(data) {
+                  $("#alertabaja").css("display","block").delay(3000).fadeOut( "slow" );;
+                  $("#alertabaja").addClass("alert alert-success");
+                  $("#mensajebaja").html("Usuario<strong> "+ $nombre +" "+ $apellido +"</strong> Dado de baja");
+
+      }).fail(function(data) {
+                    $("#alertabaja").css("display","block").delay(3000).fadeOut( "slow" );
+                    $("#alertabaja").addClass("alert alert-danger");
+                    $("#mensajebaja").html(" Ocurrio un<strong> error</strong> en el proceso."+data);
+      });
+    }
+
+    function dardealta($id, $nombre, $apellido){
+      $.ajax({
+            url : "assets/ajax/dardealta.php",
+            type: "POST",
+            data : {
+              id:  $id,
+              nom: $nombre,
+              ape: $apellido
+            }
+      }).done(function(data) {
+                  $("#alertabaja").css("display","block").delay(3000).fadeOut( "slow" );;
+                  $("#alertabaja").addClass("alert alert-success");
+                  $("#mensajebaja").html("Usuario<strong> "+ $nombre +" "+ $apellido +"</strong> Dado de alta");
+
+      }).fail(function(data) {
+                    $("#alertabaja").css("display","block").delay(3000).fadeOut( "slow" );
+                    $("#alertabaja").addClass("alert alert-danger");
+                    $("#mensajebaja").html(" Ocurrio un<strong> error</strong> en el proceso."+data);
+      });
+    }
    
   </script>
 

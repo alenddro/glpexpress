@@ -18,14 +18,17 @@
 			      "</div>"+
 			      "<div class='modal-footer'>"+
 			       	"<button type='button' class='btn btn-default' data-dismiss='modal'>Cancelar</button>"+
-			        "<input id='btn_enviar' name='enviarcorreo' type='submit' class='btn btn-primary' value='Enviar'>"+
+			        "<a id='btn_enviar' name='enviarcorreo' class='btn btn-primary' onClick='clickenviar("+$id+")'>Enviar</a>"+
 			      "</div>"+
 			    "</div>"+
 			  "</div>"+
 			"</div>"+
 		"</form>");
 	 	
+	}
 
+	function clickenviar($id){
+		
 	 	$("#ajaxform").submit(function(e)
 			{
 			    var postData = $(this).serializeArray();
@@ -37,7 +40,26 @@
 			        data : postData,
 			        success:function(data) 
 			        {
-			            $('#respuestaMensajeModal').html(data);
+			            $('#respuestaMensajeModal').html(
+			            "<form>"+	
+							"<div class='modal fade in' id='formSaludo' tabindex='-1' role='dialog' aria-labelledby='formSaludo' aria-hidden='true' style='display: block;'>"+
+							  "<div class='modal-dialog'>"+
+							    "<div class='modal-content'>"+
+							      "<div class='modal-header'>"+
+							        "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"+
+							        "<h4 class='modal-title'>"+ data +"</h4>"+
+							      "</div>"+
+							      "<div class='modal-body'>"+
+							      	  "<p>"+ data +" satisfactoriamente al usuario</p>"+
+							      "</div>"+
+							      "<div class='modal-footer'>"+
+							       	"<a type='button' class='btn btn-default' data-dismiss='modal' onClick='clickcerrar()'>Cerrar</a>"+
+							      "</div>"+
+							    "</div>"+
+							  "</div>"+
+							"</div>"+
+						"</form>");
+			        	$("#myModal"+ $id +"").hide();
 			        },
 			        error: function(jqXHR, textStatus, errorThrown) 
 			        {
@@ -49,7 +71,14 @@
 			 
 			$("#ajaxform").submit(); //Submit  the FORM
 	}
-	
+
+	function clickcerrar(){
+		$("#formSaludo").removeClass("in");
+	    $(".modal-backdrop").remove();
+	    $("#formSaludo").hide();
+		$("#myBody").removeClass("modal-open");
+	}
+
 	
 
 //onClick=\"enviaCorreoJavascript('" + $correo + "' ,'"+  +"');\"

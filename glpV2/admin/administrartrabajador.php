@@ -18,15 +18,15 @@ require_once('../conexion.php');
         $ejecSumaStockTotalProductos=mysql_query($sqlSumaStockTotalProductos, $conexion);
 
         //total de cilindros de 5
-        $sqlCilindros5kg= "SELECT stock_prod FROM producto WHERE kilos_prod ='5'";
+        $sqlCilindros5kg= "SELECT id_prod, stock_prod FROM producto WHERE kilos_prod ='5'";
         $ejecCilindros5kg = mysql_query($sqlCilindros5kg,$conexion);
         $arrayGas5kg =mysql_fetch_array($ejecCilindros5kg);
         //total de cilindros de 15
-        $sqlCilindros15kg= "SELECT stock_prod FROM producto WHERE kilos_prod ='15'";
+        $sqlCilindros15kg= "SELECT id_prod, stock_prod FROM producto WHERE kilos_prod ='15'";
         $ejecCilindros15kg = mysql_query($sqlCilindros15kg,$conexion);
         $arrayGas15kg =mysql_fetch_array($ejecCilindros15kg);
         //total de cilindros de 45
-        $sqlCilindros45kg= "SELECT stock_prod FROM producto WHERE kilos_prod ='45'";
+        $sqlCilindros45kg= "SELECT id_prod, stock_prod FROM producto WHERE kilos_prod ='45'";
         $ejecCilindros45kg = mysql_query($sqlCilindros45kg,$conexion);
         $arrayGas45kg =mysql_fetch_array($ejecCilindros45kg);
 
@@ -114,7 +114,8 @@ require_once('../conexion.php');
                       <br>
                        
                       <label>Seleccione Stock</label>
-                      <div class="form-control"> 
+                      <div class="form-control">
+                        <input type="hidden" name="id_produ5" value="<?php echo $arrayGas5kg['id_prod'];?>"> 
                         <label>Gas de 5 KG: </label>
                         <select name="gas5">
                           <?php $num2=0;
@@ -134,7 +135,8 @@ require_once('../conexion.php');
                       <br>
                       
                       <label>Seleccione Stock</label>
-                      <div class="form-control"> 
+                      <div class="form-control">
+                        <input type="hidden" name="id_produ15" value="<?php echo $arrayGas15kg['id_prod'];?>"> 
                         <label>Gas de 15 KG: </label>
                        <select name="gas15">
                           <?php $num2=0;
@@ -154,7 +156,8 @@ require_once('../conexion.php');
                       <br>
 
                       <label>Seleccione Stock</label>
-                      <div class="form-control"> 
+                      <div class="form-control">
+                        <input type="hidden" name="id_produ45" value="<?php echo $arrayGas45kg['id_prod'];?>"> 
                         <label>Gas de 45 KG: </label>
                         <select name="gas45">
                           <?php $num2=0;

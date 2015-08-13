@@ -19,8 +19,11 @@ $fec_subida= date("Y-m-d H:i:s");
 
 
 $stock5=$_POST['gas5'];
+$id5=$_POST['id_produ5'];
 $stock15=$_POST['gas15'];
+$id15=$_POST['id_produ15'];
 $stock45=$_POST['gas45'];
+$id45=$_POST['id_produ45'];
 
 $stockcamion= $stock5 + $stock15 + $stock45;
 /*Estado del trabajador
@@ -29,14 +32,14 @@ $stockcamion= $stock5 + $stock15 + $stock45;
 */
 $stock_original="\n |Gas de 5Kg: ".$stock5."\n |Gas de 15Kg: ".$stock15. "\n |Gas de 45Kg: ".$stock45;
 
-	$sqlInsertarTrabajadorActivo="insert into trabajadoractivo (id_trab_activo,nombre_trab_activo,apellido_trab_activo,id_camion_trab_activo,stock_camion_trab_activo,fec_asignacion_trab_activo,estado_trab_activo,stock_gas_5_trab_activo,stock_gas_15_trab_activo,stock_gas_45_trab_activo,stock_gas_original_trab_activo,asignado_por_trab_activo) value ('$trabajador','$nombre','$apellido','$camion','$stockcamion','$fec_subida',1,'$stock5','$stock15','$stock45','$stock_original','$asignado_por')";
-	$ejecInsertarTrabajadorActivo=mysql_query($sqlInsertarTrabajadorActivo,$conexion);
+	$sqlInsertarTrabajadorActivo="insert into trabajadoractivo (id_trab_activo,nombre_trab_activo,apellido_trab_activo,id_camion_trab_activo,stock_camion_trab_activo,fec_asignacion_trab_activo,estado_trab_activo,id_gas_5_trab_activo,stock_gas_5_trab_activo,id_gas_15_trab_activo,stock_gas_15_trab_activo,id_gas_45_trab_activo,stock_gas_45_trab_activo,stock_gas_original_trab_activo,asignado_por_trab_activo) value ('$trabajador','$nombre','$apellido','$camion','$stockcamion','$fec_subida',1,'$id5','$stock5','$id15','$stock15','$id45','$stock45','$stock_original','$asignado_por')";
+	$ejecInsertarTrabajadorActivo=mysql_query($sqlInsertarTrabajadorActivo, $conexion);
 
 
 
     if ($ejecInsertarTrabajadorActivo) {
 
-    $sqlInsertarRegActTrabajadorActivo="insert into registro_trab_activos (id_trab_activo_reg_activo,nombre_trab_activo_reg_activo,apellido_trab_activo_reg_activo,id_camion_trab_activo_reg_activo,stock_camion_trab_activo_reg_activo,fec_asignacion_trab_activo_reg_activo,estado_trab_activo_reg_activo,stock_gas_5_trab_activo_reg_activo,stock_gas_15_trab_activo_reg_activo,stock_gas_45_trab_activo_reg_activo,stock_gas_original_trab_activo_reg_activo,asignado_por_trab_activo_reg_activo) value ('$trabajador','$nombre','$apellido','$camion','$stockcamion','$fec_subida',1,'$stock5','$stock15','$stock45','$stock_original','$asignado_por')";
+    $sqlInsertarRegActTrabajadorActivo="insert into registro_trab_activos (id_trab_activo_reg_activo,nombre_trab_activo_reg_activo,apellido_trab_activo_reg_activo,id_camion_trab_activo_reg_activo,stock_camion_trab_activo_reg_activo,fec_asignacion_trab_activo_reg_activo,estado_trab_activo_reg_activo,id_gas_5_trab_activo_reg_activo,stock_gas_5_trab_activo_reg_activo,id_gas_15_trab_activo_reg_activo,stock_gas_15_trab_activo_reg_activo,id_gas_45_trab_activo_reg_activo,stock_gas_45_trab_activo_reg_activo,stock_gas_original_trab_activo_reg_activo,asignado_por_trab_activo_reg_activo) value ('$trabajador','$nombre','$apellido','$camion','$stockcamion','$fec_subida',1,'$id5','$stock5','$id15','$stock15','$id45','$stock45','$stock_original','$asignado_por')";
     $ejecInsertarRegActTrabajadorActivo=mysql_query($sqlInsertarRegActTrabajadorActivo,$conexion);
 
     	if ($ejecInsertarTrabajadorActivo AND $ejecInsertarRegActTrabajadorActivo) {

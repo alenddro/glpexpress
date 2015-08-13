@@ -1,12 +1,12 @@
 <?php
-require_once('../../../isset/functions.php');
+    require_once('../../../isset/functions.php');
 
 
-$asunto = $_POST["asunto"];
-$mensajepost = $_POST["mensaje"];
-$correo = $_POST["correo"];
-$nom = $_POST["nombre"];
-$ape = $_POST["apellido"];
+    $asunto = $_POST["asunto"];
+    $mensajepost = $_POST["mensaje"];
+    $correo = $_POST["correo"];
+    $nom = $_POST["nombre"];
+    $ape = $_POST["apellido"];
  
 $mensaje = <<<EOM
 <html>
@@ -43,4 +43,8 @@ $mensaje = <<<EOM
 </html>
 EOM;
 
-            enviaCorreo($correo, $asunto, $mensaje, '');
+        enviaCorreo($correo, $asunto, $mensaje, '');
+
+        echo "Mensaje enviado";
+       
+?>

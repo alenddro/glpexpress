@@ -8,15 +8,15 @@ require_once('conexion.php');
         $arrayIDusuarioLogueado=mysql_fetch_array($ejecIDusuarioLogueado);
 
         //productos
-        $sqlProductos="select * from producto";
+        $sqlProductos="select * from producto where tipo_producto_prod='cilindros'";
         $ejecProductos=mysql_query($sqlProductos, $conexion);
 
-        while($arrayProductos=mysql_fetch_array($ejecProductos)){
+        //while($arrayProductos=mysql_fetch_array($ejecProductos)){
 
-            $id[]=$arrayProductos['id_prod'];
-            $producto[]=$arrayProductos['nombre_prod'];
-            $valor[]=$arrayProductos['valor_prod'];
-        }
+            //$id[]=$arrayProductos['id_prod'];
+            //$producto[]=$arrayProductos['nombre_prod'];
+            //$valor[]=$arrayProductos['valor_prod'];
+        //}
 
 
 
@@ -29,6 +29,33 @@ require_once('conexion.php');
     <link rel="stylesheet" type="text/css" href="css/estilos.css">
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    
+    <style>
+        .input_hidden {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .selected {
+            background-color: red;
+        }
+
+        #productos label {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+
+        #productos label:hover {
+            background-color: #efefef;
+        }
+
+        #productos label img {
+            padding: 3px;
+            
+        }
+    </style>
+
 </head>
 <body id="solicita-gas">
    <header>
@@ -73,32 +100,18 @@ require_once('conexion.php');
                 <form action="pedido.php" method="post">
                     <input type="hidden" name="idusuario" value="<?php echo $arrayIDusuarioLogueado['id_usu'];?>">
                     <div class="container-fluid contenedor-gas">
-                        <div class="row">
-                            <div class="col-xs-6 col-md-6 text-right">
-                                <img src="img/5kg.jpg" alt="5kg" width="100">
-                            </div>
-                            <div class="col-xs-6 col-md-6 text-left radio-gas">
-                                <input type="radio" name="idgas" value="<?php echo $id[0]?>"><?php echo  $producto[0];?>
-                                <label>$<?php echo $valor[0];?></label>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="col-xs-6 col-md-6 text-right">
-                                <img src="img/15kg.jpg" alt="15kg" width="100">
-                            </div>
-                            <div class="col-xs-6 col-md-6 text-left radio-gas">
-                                <input type="radio" name="idgas" value="<?php echo $id[1]?>"><?php echo  $producto[1];?>
-                                <label>$<?php echo $valor[1];?></label>
-                            </div>
+                        <div class="row" id="productos">
+                            <?php while ($arrayProductos=mysql_fetch_array($ejecProductos)){ ;?>
+                                <div class="col-md-4 col-xs-12" >
+                                    <div class="row">
+                                        <input type="radio" name="idgas" id="<?php echo $arrayProductos['id_prod'];?>" value="<?php echo $arrayProductos['id_prod'];?>" /><label for="<?php echo $arrayProductos['id_prod'];?>"><img src="<?php echo $arrayProductos['ruta_img_prod']; ?>" alt="5kg" width="300"></label>
+                                       
+                                    </div>
+                                </div>
+                            <?php };?> 
+                        </div>
 
-                            <div class="clearfix"></div>
-                            <div class="col-xs-6 col-md-6 text-right">
-                                <img src="img/45kg.jpg" alt="45kg" width="100">
-                            </div>
-                            <div class="col-xs-6 col-md-6 text-left radio-gas">
-                                <input type="radio" name="idgas" value="<?php echo $id[2]?>"><?php echo  $producto[2];?>
-                                <label>$<?php echo $valor[2];?></label>
-                            </div>
-
+                        <div class="row">    
                             <div class="clearfix"></div>
                             <div class="row">
                                 <div class="col-xs-12 text-center">
@@ -127,5 +140,14 @@ require_once('conexion.php');
         </article>
     </section>
     <?php require_once("isset/footer.html");?>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.4.2.js"></script>
+
+    <script>
+        $('#productos input:radio').addClass('input_hidden');
+        $('#productos label').click(function() {
+            $(this).addClass('selected').siblings().removeClass('selected');
+        });
+    </script>
 </body>
 </html>

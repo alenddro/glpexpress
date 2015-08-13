@@ -72,7 +72,7 @@ require_once('../conexion.php');
                                 <div class="col-xs-12 listado-trabajador">
                                     <a href="#verpromocion<?php echo $arrayListadoPromociones['id_prom']?>" data-toggle="collapse"><?php echo $arrayListadoPromociones['titulo_prom']; ?>&nbsp;<?php echo $arrayListadoPromociones['valor_prom']; ?>&nbsp;| Stock: <?php echo $arrayListadoPromociones['stock_prom'];?>&nbsp;| Estado: <?php $estado = 1; $estado2 = ($estado==$arrayListadoPromociones['estado_prom'] ?  "ACTIVO" : "INACTIVO"); echo $estado2; ?></a> 
                                         <div id="verpromocion<?php echo $arrayListadoPromociones['id_prom']?>" class="collapse">
-                                        <h1>Codigo Oferta: <?php echo $arrayListadoPromociones['id_prom'];?></h1> 
+                                        <h1>Codigo Promocion: <?php echo $arrayListadoPromociones['id_prom'];?></h1> 
                                         <div class="row">
                                             <div class="col-xs-12 col-md-12 ">
                                                 <div class="container-fluid">  

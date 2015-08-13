@@ -34,6 +34,7 @@
                           <span>Area Logistica</span>
                       </a>
                       <ul class="sub">
+                          <li><a  href="stock.php">Revisar Stock</a></li>
                           <li><a  href="agregarproducto.php">Agregar Productos</a></li>
                           <li><a  href="listadoproductos.php">Listar Productos</a></li>
                           <li><a  href="agregarcamiones.php">Agregar Camiones</a></li>
